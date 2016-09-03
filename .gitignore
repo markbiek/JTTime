@@ -5,3 +5,6 @@
 Homestead.json
 Homestead.yaml
 .env
+.*.swp
+public/js
+public/css
