@@ -10,6 +10,6 @@ class Invoice extends Model {
     }
 
     public function tasks() {
-        return $this->hasMany('App\Task');
+        return $this->hasMany('App\Task')->orderBy('created_at');
     }
 }
