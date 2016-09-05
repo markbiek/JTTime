@@ -10,6 +10,6 @@ class Invoice extends Model {
     }
 
     public function tasks() {
-        return $this->hasMany('App\Invoices');
+        return $this->hasMany('App\Task');
     }
 }
