@@ -65,6 +65,19 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+        'old_jttime' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_OLD_DATABASE', ''),
+            'username' => env('DB_OLD_USERNAME', ''),
+            'password' => env('DB_OLD_PASSWORD', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
