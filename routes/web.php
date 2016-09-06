@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('login', 'Auth\LoginController@showLoginForm');
+Route::post('login', 'Auth\LoginController@login');
+Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/invoice/{tag}', 'InvoiceController@viewInvoice');
+Route::get('/', 'HomeController@index');
