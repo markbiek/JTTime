@@ -29,4 +29,12 @@ class User extends Authenticatable {
     public function address() {
         return $this->belongsTo('App\Address');
     }
+
+    public function invoices() {
+        return $this->hasMany('App\Invoices');
+    }
+
+    public function tasks() {
+        return $this->hasMany('App\Task');
+    }
 }
