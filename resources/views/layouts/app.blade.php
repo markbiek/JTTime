@@ -17,8 +17,7 @@
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css">
     <link href="//fonts.googleapis.com/css?family=Alegreya+Sans:400,700" rel="stylesheet" type="text/css">
     <link href='//fonts.googleapis.com/css?family=Duru+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href="/css/print.css" media="print">
+    <link rel="stylesheet" href="/css/app.css">
 
     <!-- Scripts -->
     <script>
