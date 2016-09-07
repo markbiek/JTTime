@@ -86,6 +86,6 @@ echo json_encode([ 'csrfToken' => csrf_token(), ]);
     @yield('content')
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script src="/js/bundle.js"></script>
 </body>
 </html>
