@@ -18,6 +18,7 @@
     <link href="//fonts.googleapis.com/css?family=Alegreya+Sans:400,700" rel="stylesheet" type="text/css">
     <link href='//fonts.googleapis.com/css?family=Duru+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/print.css" media="print">
 
     <!-- Scripts -->
     <script>
@@ -28,7 +29,7 @@ echo json_encode([ 'csrfToken' => csrf_token(), ]);
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top noprint">
         <div class="container">
             <div class="navbar-header">
 
