@@ -17,3 +17,5 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/invoice/{tag}', 'InvoiceController@viewInvoice');
 Route::get('/', 'HomeController@index');
+
+Route::get('/api/tasks', 'ApiController@tasks');
