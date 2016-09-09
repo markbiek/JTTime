@@ -19,6 +19,19 @@ class Dashboard extends React.Component {
             .catch(function (err) {
                 console.log(err);
             });
+
+        axios.get('/api/companies')
+            .then((response) => {
+                var companies = response.data;
+
+                store.dispatch({
+                    type: 'GET_COMPANIES',
+                    companies 
+                });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     }
 
     render() {

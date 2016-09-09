@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import store from '../store.js';
 import CompanySelect from './CompanySelect.jsx';
 
@@ -14,7 +15,24 @@ class TaskForm extends React.Component {
     submit(e) {
         e.preventDefault();
     
-        console.log(this.props);
+        var task = Object.assign({}, this.props.form);
+        task.billed = 0;
+
+        axios.post('/api/tasks/add', task)
+            .then(function (response) {
+                var task = response.data;
+
+                console.log('Save task response:');
+                console.log(task);
+                store.dispatch({
+                    type: 'ADD_TASK',
+                    task
+                });
+            })
+            .catch(function (err) {
+                console.log('Error adding task.');
+                console.log(err);
+            });
     }
 
     change(e) {
@@ -39,6 +57,10 @@ class TaskForm extends React.Component {
                         <div className="form-group">
                             <label>Company:</label>
                             <CompanySelect change={this.change}/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="date">Date:</label>
+                            <input type="date" id="date" className="form-control" placeholder="Date" onChange={this.change} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="task">Task:</label>

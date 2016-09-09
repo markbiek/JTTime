@@ -1,11 +1,30 @@
 import { createStore, combineReducers } from 'redux';
 
+/** Meta Store **/
+const metaInitialState = {
+    companies: []
+}
+
+const metaReducer = function (state = metaInitialState, action) {
+    switch (action.type) {
+        case 'GET_COMPANIES':
+            var newState = Object.assign({}, state);
+            newState.companies = action.companies;
+
+            return newState;
+    }
+
+    return state;
+}
+
+/** Task Store **/
 const taskInitialState = {
     tasks: [],
     form: {
         task: '',
         company: -1,
-        hours: -1
+        hours: -1,
+        date: null
     }
 }
 
@@ -15,10 +34,12 @@ const taskReducer = function (state = taskInitialState, action) {
             return Object.assign({}, state, {tasks: action.tasks});
 
         case 'ADD_TASK':
-            var newState = Object.assign({}, state);
-            newState.push(action.task);
+            var tasks = state.tasks.slice(0);
+            tasks.push(action.task);
 
-            return newState;
+            return Object.assign({}, state, {
+                tasks: tasks
+            });
 
         case 'TASK_FORM_CHANGE':
             var newState = Object.assign({}, state);
@@ -31,7 +52,8 @@ const taskReducer = function (state = taskInitialState, action) {
 }
 
 const reducers = combineReducers({
-    taskState: taskReducer
+    taskState: taskReducer,
+    metaState: metaReducer
 });
 
 const store = createStore(reducers);

@@ -42,4 +42,20 @@ class ApiController extends Controller {
 
         return response()->json($companies->toArray());
     }
+
+    public function storeTask(Request $request) {
+        $task = new Task;
+
+        $task->user_id = Auth::user()->id;
+        $task->billed = false;
+        $task->task = $request->input('task');
+        $task->hours = $request->input('hours');
+        $task->created_at = $request->input('date');
+        $task->company_id = $request->input('company');
+
+        $task->save();
+        $task = Task::where('id', $task->id)->with('company')->first();
+
+        return response()->json($task->toArray());
+    }
 }

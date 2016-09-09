@@ -6,6 +6,8 @@ import TaskItem from './TaskItem.jsx';
 class TaskList extends React.Component {
     render() {
         var props = this.props;
+        console.log('TaskList->render()');
+        console.log(props.tasks);
 
         if (props.tasks.length <= 0) {
             return (
@@ -45,6 +47,8 @@ class TaskList extends React.Component {
 }
 
 const mapStateToProps = function(store) {
+    console.log('TaskList mapStateToProps');
+    console.log(store.taskState.tasks);
     return {
         tasks: store.taskState.tasks
     };
