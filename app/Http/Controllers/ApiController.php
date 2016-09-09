@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
 use App\Task;
+use App\Company;
 
 class ApiController extends Controller {
     public function __construct() {
@@ -34,5 +35,11 @@ class ApiController extends Controller {
         $data = $tasks->toArray();
 
         return response()->json($data);
+    }
+
+    public function companies(Request $request) {
+        $companies = Company::orderBy('name')->get();
+
+        return response()->json($companies->toArray());
     }
 }

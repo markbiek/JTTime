@@ -19,3 +19,4 @@ Route::get('/invoice/{tag}', 'InvoiceController@viewInvoice');
 Route::get('/', 'HomeController@index');
 
 Route::get('/api/tasks', 'ApiController@tasks');
+Route::get('/api/companies', 'ApiController@companies');
