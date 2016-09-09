@@ -29,7 +29,7 @@ class ApiController extends Controller {
             $tasks = $tasks->where('invoice_id', $request->input('invoice'));
         }
 
-        $tasks = $tasks->get();
+        $tasks = $tasks->with('company')->orderBy('created_at', 'desc')->get();
 
         $data = $tasks->toArray();
 
