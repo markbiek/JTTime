@@ -4,29 +4,43 @@ import store from '../store.js';
 import TaskItem from './TaskItem.jsx';
 
 class TaskList extends React.Component {
-    componentWillMount() {
-        store.subscribe(() => {
-            var state = store.getState();
-            this.setState({
-                tasks: state.tasks
-            });
-        });
-    }
-
     render() {
-        return (
-            <div>
-                <ul>
-                    {
-                        this.props.tasks.map(task => {
-                            return (
-                                <TaskItem key={task.id} task={task} />
-                            )
-                        })
-                    }
-                </ul>
-            </div>
-        )
+        var props = this.props;
+
+        if (props.tasks.length <= 0) {
+            return (
+                <div>
+                    <h2>Unbilled Tasks</h2>
+
+                    <p>No unbilled tasks found.</p>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <h2>Unbilled Tasks</h2>
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Task</th>
+                                <th>Hours</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            this.props.tasks.map(task => {
+                                return (
+                                    <TaskItem key={task.id} task={task} />
+                                )
+                            })
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
     }
 }
 

@@ -10,7 +10,7 @@ class App extends React.Component {
             <Provider store={store}>
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-8 col-md-offset-2">
+                        <div className="col-md-12">
                             <Dashboard />
                         </div>
                     </div>

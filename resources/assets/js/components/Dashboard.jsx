@@ -3,44 +3,22 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import store from '../store.js';
 import TaskList from './TaskList.jsx';
+import TaskForm from './TaskForm.jsx';
 
 class Dashboard extends React.Component {
     componentDidMount() {
-        //TODO, this is just test code
-        var tasks = [
-            {
-                id: 1,
-                company_id: 1,
-                task: 'This is task 1',
-                hours: 1.5,
-                billed: false,
-                raw_amount: 0.0,
-                user_id: 2
-            },
-            {
-                id: 2,
-                company_id: 1,
-                task: 'This is task 2',
-                hours: .5,
-                billed: false,
-                raw_amount: 0.0,
-                user_id: 2
-            },
-            {
-                id: 3,
-                company_id: 1,
-                task: 'This is task 3',
-                hours: 0.0,
-                billed: false,
-                raw_amount: 10.0,
-                user_id: 2
-            }
-        ];
+        axios.get('/api/tasks?status=unbilled')
+            .then(function (response) {
+                var tasks = response.data;
 
-        store.dispatch({
-            type: 'GET_BILLED_TASKS',
-            tasks
-        });
+                store.dispatch({
+                    type: 'GET_BILLED_TASKS',
+                    tasks
+                });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     }
 
     render() {
@@ -48,6 +26,7 @@ class Dashboard extends React.Component {
             <div>
                 <h1>Time Dashboard</h1>
 
+                <TaskForm />
                 <TaskList />
             </div>
         )

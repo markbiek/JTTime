@@ -5,7 +5,12 @@ class TaskItem extends React.Component {
         var props = this.props;
 
         return (
-            <li key={props.task.id}>{props.task.task}</li>
+            <tr key={props.task.id}>
+                <td>{props.task.company.name}</td>
+                <td>{props.task.task}</td>
+                <td>{props.task.hours}</td>
+                <td>{props.task.created_at}</td>
+            </tr>
         )
     }
 }
