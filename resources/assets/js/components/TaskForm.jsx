@@ -60,7 +60,7 @@ class TaskForm extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        task: store.taskFormState
+        form: store.taskState.form
     };
 };
 

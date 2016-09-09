@@ -1,12 +1,12 @@
 import { createStore, combineReducers } from 'redux';
 
 const taskInitialState = {
-    tasks: []
-}
-
-const taskFormInitialState = {
-    task: '',
-    hours: -1
+    tasks: [],
+    form: {
+        task: '',
+        company: -1,
+        hours: -1
+    }
 }
 
 const taskReducer = function (state = taskInitialState, action) {
@@ -19,16 +19,10 @@ const taskReducer = function (state = taskInitialState, action) {
             newState.push(action.task);
 
             return newState;
-    }
 
-    return state;
-}
-
-const taskFormReducer = function (state = taskFormInitialState, action) {
-    switch (action.type) {
         case 'TASK_FORM_CHANGE':
             var newState = Object.assign({}, state);
-            newState[action.form.prop] = action.form.value;
+            newState.form[action.form.prop] = action.form.value;
 
             return newState;
     }
@@ -37,8 +31,7 @@ const taskFormReducer = function (state = taskFormInitialState, action) {
 }
 
 const reducers = combineReducers({
-    taskState: taskReducer,
-    taskFormState: taskFormReducer
+    taskState: taskReducer
 });
 
 const store = createStore(reducers);
