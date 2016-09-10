@@ -58,4 +58,28 @@ class ApiController extends Controller {
 
         return response()->json($task->toArray());
     }
+
+    public function deleteTask(Request $request) {
+        $task = Task::where('id', $request->input('id'))->first();
+
+        $data = [
+            'msg' => '',
+            'status' => 'error'
+        ];
+
+        if (!empty($task)) {
+            if ($task->user_id == Auth::user()->id) {
+                $data['msg'] = $task->id;
+                $data['status'] = 'ok';
+
+                $task->delete();
+            } else {
+                $data['msg'] = 'Permission denied.';
+            }
+        } else {
+            $data['msg'] = 'Task not found.';
+        }
+
+        return response()->json($data);
+    }
 }

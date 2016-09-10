@@ -22,8 +22,6 @@ class TaskForm extends React.Component {
             .then(function (response) {
                 var task = response.data;
 
-                console.log('Save task response:');
-                console.log(task);
                 store.dispatch({
                     type: 'ADD_TASK',
                     task

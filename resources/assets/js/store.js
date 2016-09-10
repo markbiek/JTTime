@@ -41,6 +41,15 @@ const taskReducer = function (state = taskInitialState, action) {
                 tasks: tasks
             });
 
+        case 'DELETE_TASK':
+            var tasks = _.filter(state.tasks.slice(0), function (o) {
+                return o.id != action.task.id
+            });
+
+            return Object.assign({}, state, {
+                tasks: tasks
+            });
+
         case 'TASK_FORM_CHANGE':
             var newState = Object.assign({}, state);
             newState.form[action.form.prop] = action.form.value;

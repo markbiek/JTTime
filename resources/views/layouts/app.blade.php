@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/css/print.css" media="print">
 
     <!-- Scripts -->
+    <script src="https://use.fontawesome.com/571406dd14.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
     <script>
         window.Laravel = 
 <?php
