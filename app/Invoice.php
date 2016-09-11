@@ -16,4 +16,13 @@ class Invoice extends Model {
     public function tasks() {
         return $this->hasMany('App\Task')->orderBy('created_at');
     }
+
+    public function generateTag() {
+        $id = "";
+        foreach (range(1, 15) as $num) {
+            $id .= chr(rand(48, 57));
+        }
+
+        return $id;
+    }
 }

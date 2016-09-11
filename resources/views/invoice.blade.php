@@ -1,4 +1,5 @@
 <?php
+    $user = $invoice->user;
     $company = $invoice->company;
     $address = $company->address;
 ?>
@@ -10,8 +11,7 @@
     <div class="col-md-3">
         <p>
 <?php
-echo $address->address . '<br />' .
-    $address->city . ', ' . $address->state . ' ' . $address->zip;
+echo $address->htmlAddress();
 ?>
         </p>
     </div>
@@ -61,13 +61,18 @@ endforeach;
 <tr>
                     <td colspan="2">&nbsp;</td>
                     <td>
-                        Total: <?php echo "$" . $total; ?>
+                        <strong>Total: <?php echo "$" . $total; ?></strong>
 <?php
 if (!$invoice->paid) :
 ?>
-                            <span class="footnote">
-                                Pay To: <em>Mark Biek</em>. 
-                            </span>
+                        <p class="footnote">Pay To:<br /><br />
+<?php
+    echo $user->name;
+?><br />
+<?php
+    echo $user->address->htmlAddress();
+?><br />
+                        </p>
 <?php
 else :
 ?>

@@ -1,42 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store.js';
-import TaskItem from './TaskItem.jsx';
-import InvoiceForm from './InvoiceForm.jsx';
+import InvoiceItem from './InvoiceItem.jsx';
 
-class TaskList extends React.Component {
+class InvoiceList extends React.Component {
     render() {
         var props = this.props;
 
-        if (props.tasks.length <= 0) {
+        if (props.invoices.length <= 0) {
             return (
                 <div>
-                    <h2>Unbilled Tasks</h2>
+                    <h2>Unbilled Invoices</h2>
 
-                    <p>No unbilled tasks found.</p>
+                    <p>No unbilled invoices found.</p>
                 </div>
             )
         } else {
             return (
                 <div>
-                    <InvoiceForm checkedTasks={props.taskState.checked} />
-                    <h2>Unbilled Tasks</h2>
+                    <h2>Unbilled Invoices</h2>
                     <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th>&nbsp;</th>
-                                <th>&nbsp;</th>
                                 <th>Company</th>
-                                <th>Task</th>
-                                <th>Hours</th>
+                                <th>Description</th>
+                                <th>Total</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
                         {
-                            this.props.tasks.map(task => {
+                            this.props.invoices.map(invoice => {
                                 return (
-                                    <TaskItem key={task.id} task={task} />
+                                    <InvoiceItem key={invoice.id} invoice={invoice} />
                                 )
                             })
                         }
@@ -50,8 +47,8 @@ class TaskList extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        tasks: store.taskState.tasks
+        invoices: store.invoiceState.invoices
     };
 };
 
-export default connect(mapStateToProps)(TaskList);
+export default connect(mapStateToProps)(InvoiceList);

@@ -18,8 +18,12 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::get('/invoice/{tag}', 'InvoiceController@viewInvoice');
 Route::get('/', 'HomeController@index');
 
-Route::get('/api/tasks', 'ApiController@tasks');
 Route::get('/api/companies', 'ApiController@companies');
 
+Route::get('/api/tasks', 'ApiController@tasks');
 Route::post('/api/tasks/add', 'ApiController@storeTask');
 Route::post('/api/tasks/delete', 'ApiController@deleteTask');
+
+Route::get('/api/invoices', 'ApiController@invoices');
+Route::post('/api/invoices/add', 'ApiController@storeInvoice');
+Route::post('/api/invoices/delete', 'ApiController@deleteInvoice');

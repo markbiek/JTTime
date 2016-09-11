@@ -4,9 +4,23 @@ import axios from 'axios';
 import store from '../store.js';
 import TaskList from './TaskList.jsx';
 import TaskForm from './TaskForm.jsx';
+import InvoiceList from './InvoiceList.jsx';
 
 class Dashboard extends React.Component {
     componentDidMount() {
+        axios.get('/api/invoices?status=unpaid')
+            .then(function (response) {
+                var invoices = response.data;
+
+                store.dispatch({
+                    type: 'GET_UNPAID_INVOICES',
+                    invoices
+                });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
         axios.get('/api/tasks?status=unbilled')
             .then(function (response) {
                 var tasks = response.data;
@@ -35,12 +49,16 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        var props = this.props;
+
         return (
             <div>
                 <h1>Time Dashboard</h1>
 
                 <TaskForm />
-                <TaskList />
+                <TaskList taskState={props.taskState} />
+
+                <InvoiceList />
             </div>
         )
     }
@@ -48,7 +66,8 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        tasks: store.taskState.tasks
+        taskState: store.taskState,
+        invoiceState: store.invoiceState
     };
 };
 

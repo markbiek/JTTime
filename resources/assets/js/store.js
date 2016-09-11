@@ -104,6 +104,7 @@ const taskReducer = function (state = taskInitialState, action) {
 }
 
 const reducers = combineReducers({
+    invoiceState: invoiceReducer,
     taskState: taskReducer,
     metaState: metaReducer
 });

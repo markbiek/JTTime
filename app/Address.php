@@ -12,4 +12,16 @@ class Address extends Model {
     public function companies() {
         return $this->hasMany('App\Company');
     }
+
+    public function htmlAddress() {
+        $html = '';
+
+        $html .= "{$this->address}<br />";
+        if ($this->address2) {
+            $html .= "{$this->address2}<br />";
+        }
+        $html .= "{$this->city}, {$this->state} {$this->zip}";
+
+        return $html;
+    }
 }
