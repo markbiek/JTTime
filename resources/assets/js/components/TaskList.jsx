@@ -23,6 +23,7 @@ class TaskList extends React.Component {
                         <thead>
                             <tr>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                                 <th>Company</th>
                                 <th>Task</th>
                                 <th>Hours</th>

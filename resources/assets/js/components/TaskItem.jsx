@@ -7,6 +7,7 @@ class TaskItem extends React.Component {
         super(props);
 
         this.delete = this.delete.bind(this);
+        this.check = this.check.bind(this);
     }
 
     delete(id, e) {
@@ -38,6 +39,19 @@ class TaskItem extends React.Component {
             });
     }
 
+    check(id, e) {
+        var chk = e.target;
+        var task = {
+            id: chk.value,
+            checked: chk.checked
+        }
+
+        store.dispatch({
+            type: 'TASK_CHECKED',
+            task
+        });
+    }
+
     render() {
         var props = this.props;
 
@@ -45,6 +59,9 @@ class TaskItem extends React.Component {
             <tr key={props.task.id}>
                 <td className="icons">
                     <a href="#" onClick={(e) => this.delete(props.task.id, e)}><span className="fa fa-trash-o"></span></a>
+                </td>
+                <td>
+                    <input type="checkbox" value={props.task.id} onClick={(e) => this.check(props.task.id, e)} />
                 </td>
                 <td>{props.task.company.name}</td>
                 <td>{props.task.task}</td>
