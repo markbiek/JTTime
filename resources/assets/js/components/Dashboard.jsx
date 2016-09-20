@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Immutable from 'immutable';
 import store from '../store.js';
 import TaskList from './TaskList.jsx';
 import TaskForm from './TaskForm.jsx';
@@ -36,7 +37,7 @@ class Dashboard extends React.Component {
 
         axios.get('/api/companies')
             .then((response) => {
-                var companies = response.data;
+                var companies = Immutable.fromJS(response.data);
 
                 store.dispatch({
                     type: 'GET_COMPANIES',

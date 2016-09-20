@@ -1,17 +1,15 @@
 import { createStore, combineReducers } from 'redux';
+import Immutable from 'immutable';
 
 /** Meta Store **/
-const metaInitialState = {
+const metaInitialState = Immutable.fromJS({
     companies: []
-}
+})
 
 const metaReducer = function (state = metaInitialState, action) {
     switch (action.type) {
         case 'GET_COMPANIES':
-            var newState = Object.assign({}, state);
-            newState.companies = action.companies;
-
-            return newState;
+            return state.set('companies', action.companies);
     }
 
     return state;
