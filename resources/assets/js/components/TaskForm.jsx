@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Immutable from 'immutable';
 import store from '../store.js';
 import CompanySelect from './CompanySelect.jsx';
 
@@ -14,13 +15,13 @@ class TaskForm extends React.Component {
 
     submit(e) {
         e.preventDefault();
-    
-        var task = Object.assign({}, this.props.form);
+
+        var task = this.props.form.toObject();
         task.billed = 0;
 
         axios.post('/api/tasks/add', task)
             .then(function (response) {
-                var task = response.data;
+                var task = Immutable.fromJS(response.data);
 
                 store.dispatch({
                     type: 'ADD_TASK',
@@ -80,7 +81,7 @@ class TaskForm extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        form: store.taskState.form
+        form: store.taskState.get('form')
     };
 };
 

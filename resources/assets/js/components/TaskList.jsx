@@ -8,7 +8,7 @@ class TaskList extends React.Component {
     render() {
         var props = this.props;
 
-        if (props.tasks.length <= 0) {
+        if (props.tasks.size <= 0) {
             return (
                 <div>
                     <h2>Unbilled Tasks</h2>
@@ -19,7 +19,7 @@ class TaskList extends React.Component {
         } else {
             return (
                 <div>
-                    <InvoiceForm checkedTasks={props.taskState.checked} />
+                    <InvoiceForm checkedTasks={props.checked} />
                     <h2>Unbilled Tasks</h2>
                     <table className="table table-striped">
                         <thead>
@@ -34,7 +34,8 @@ class TaskList extends React.Component {
                         </thead>
                         <tbody>
                         {
-                            this.props.tasks.map(task => {
+                            this.props.tasks.toArray().map(task => {
+                                task = task.toObject();
                                 return (
                                     <TaskItem key={task.id} task={task} />
                                 )
@@ -50,7 +51,8 @@ class TaskList extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        tasks: store.taskState.tasks
+        tasks: store.taskState.get('tasks'),
+        checked: store.taskState.get('checked')
     };
 };
 

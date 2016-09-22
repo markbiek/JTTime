@@ -24,7 +24,7 @@ class Dashboard extends React.Component {
 
         axios.get('/api/tasks?status=unbilled')
             .then(function (response) {
-                var tasks = response.data;
+                var tasks = Immutable.fromJS(response.data);
 
                 store.dispatch({
                     type: 'GET_BILLED_TASKS',
@@ -57,9 +57,9 @@ class Dashboard extends React.Component {
                 <h1>Time Dashboard</h1>
 
                 <TaskForm />
-                <TaskList taskState={props.taskState} />
+                <TaskList />
 
-                <InvoiceList />
+                {/* <InvoiceList /> */}
             </div>
         )
     }
