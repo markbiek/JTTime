@@ -16,36 +16,33 @@ const metaReducer = function (state = metaInitialState, action) {
 }
 
 /** Invoice Store **/
-const invoiceInitialState = {
+const invoiceInitialState = Immutable.fromJS({
     invoices: [],
     form: {
 
     }
-}
+})
 
 const invoiceReducer = function (state = invoiceInitialState, action) {
     switch (action.type) {
         case 'GET_UNPAID_INVOICES':
-            return Object.assign({}, state, {invoices: action.invoices});
+            return state.set('invoices', action.invoices);
 
         case 'ADD_INVOICE':
-            var invoices = state.invoices.slice(0);
-            invoices.push(action.invoice);
+            var invoices = state.get('invoices').push(action.invoice);
 
-            return Object.assign({}, state, {
-                invoices: invoices
-            });
+            return state.set('invoices', invoices);
 
         case 'DELETE_INVOICE':
-            var invoices = _.filter(state.invoices.slice(0), function (o) {
+            var invoices = Immutable.List(_.filter(state.get('invoices').toArray(), function (o) {
+                o = o.toObject();
                 return o.id != action.invoice.id;
-            });
+            }));
 
         case 'INVOICE_FORM_CHANGE':
-            var newState = Object.assign({}, state);
-            newState.form[action.form.prop] = action.form.value;
+            var form = state.get('form').set(action.form.prop, action.form.value);
 
-            return newState;
+            return state.set('form', form);
     }
 
     return state;

@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
     componentDidMount() {
         axios.get('/api/invoices?status=unpaid')
             .then(function (response) {
-                var invoices = response.data;
+                var invoices = Immutable.fromJS(response.data);
 
                 store.dispatch({
                     type: 'GET_UNPAID_INVOICES',

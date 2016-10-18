@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Immutable from 'immutable';
 import store from '../store.js';
 import InvoiceItem from './InvoiceItem.jsx';
 
 class InvoiceList extends React.Component {
     render() {
-        var props = this.props;
+        var invoices = this.props.invoices.toArray();
 
-        if (props.invoices.length <= 0) {
+        if (invoices.length <= 0) {
             return (
                 <div>
                     <h2>Unbilled Invoices</h2>
@@ -18,7 +19,7 @@ class InvoiceList extends React.Component {
         } else {
             return (
                 <div>
-                    <h2>Unbilled Invoices</h2>
+                    <h2>Unpaid Invoices</h2>
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -31,7 +32,10 @@ class InvoiceList extends React.Component {
                         </thead>
                         <tbody>
                         {
-                            this.props.invoices.map(invoice => {
+                            invoices.map(invoice => {
+                                invoice = invoice.toObject();
+                                invoice.company = invoice.company.toObject();
+
                                 return (
                                     <InvoiceItem key={invoice.id} invoice={invoice} />
                                 )
@@ -47,7 +51,7 @@ class InvoiceList extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        invoices: store.invoiceState.invoices
+        invoices: store.invoiceState.get('invoices')
     };
 };
 

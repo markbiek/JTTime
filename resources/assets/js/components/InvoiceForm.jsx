@@ -16,7 +16,7 @@ class InvoiceForm extends React.Component {
         e.preventDefault();
     
         var props = this.props;
-        var invoice = Object.assign({}, this.props.form);
+        var invoice = this.props.form.toObject();
         invoice.billed = 0;
         invoice.tasks = [];
 
@@ -30,7 +30,7 @@ class InvoiceForm extends React.Component {
 
         axios.post('/api/invoices/add', invoice)
             .then(function (response) {
-                var invoice = response.data;
+                var invoice = Immutable.fromJS(response.data);
 
                 store.dispatch({
                     type: 'ADD_INVOICE',
@@ -86,7 +86,7 @@ class InvoiceForm extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        form: store.invoiceState.form
+        form: store.invoiceState.get('form')
     };
 };
 
