@@ -39,7 +39,8 @@ class ApiController extends Controller {
     }
 
     public function companies(Request $request) {
-        $companies = Company::orderBy('name')->get();
+        $companies = Company::where('archived', 0)
+            ->orderBy('name')->get();
 
         return response()->json($companies->toArray());
     }
