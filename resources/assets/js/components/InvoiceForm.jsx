@@ -20,9 +20,10 @@ class InvoiceForm extends React.Component {
         invoice.billed = 0;
         invoice.tasks = [];
 
-        for (var i in props.checkedTasks) {
-            if (props.checkedTasks.hasOwnProperty(i) &&
-                props.checkedTasks[i]) {
+        var checkedTasks = props.checkedTasks.toObject();
+
+        for (var i in checkedTasks) {
+            if (checkedTasks.hasOwnProperty(i) && checkedTasks[i]) {
                 invoice.tasks.push(i);
             }
         }

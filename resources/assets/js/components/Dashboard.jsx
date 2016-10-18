@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
                 <TaskForm />
                 <TaskList />
 
-                {/* <InvoiceList /> */}
+                <InvoiceList />
             </div>
         )
     }
