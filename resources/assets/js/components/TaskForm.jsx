@@ -13,6 +13,10 @@ class TaskForm extends React.Component {
         this.submit = this.submit.bind(this);
     }
 
+    clearForm() {
+        document.getElementById('task-form').reset();
+    }
+
     submit(e) {
         e.preventDefault();
 
@@ -20,13 +24,15 @@ class TaskForm extends React.Component {
         task.billed = 0;
 
         axios.post('/api/tasks/add', task)
-            .then(function (response) {
+            .then((response) => {
                 var task = Immutable.fromJS(response.data);
 
                 store.dispatch({
                     type: 'ADD_TASK',
                     task
                 });
+
+                this.clearForm();
             })
             .catch(function (err) {
                 console.log('Error adding task.');
@@ -52,7 +58,7 @@ class TaskForm extends React.Component {
             <div className="row">
                 <div className="col-md-6">
                     <h2>Add Task</h2>
-                    <form className="form">
+                    <form className="form" id="task-form">
                         <div className="form-group">
                             <label>Company:</label>
                             <CompanySelect change={this.change}/>
