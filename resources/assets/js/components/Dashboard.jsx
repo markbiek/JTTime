@@ -50,8 +50,6 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        var props = this.props;
-
         return (
             <div>
                 <h1>Time Dashboard</h1>

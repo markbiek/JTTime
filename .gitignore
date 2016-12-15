@@ -6,5 +6,6 @@ Homestead.json
 Homestead.yaml
 .env
 .*.swp
+.*.swo
 public/js
 public/css

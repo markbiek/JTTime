@@ -24,6 +24,7 @@ class InvoiceList extends React.Component {
                         <thead>
                             <tr>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                                 <th>Company</th>
                                 <th>Description</th>
                                 <th>Total</th>

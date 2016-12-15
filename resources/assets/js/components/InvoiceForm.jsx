@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import store from '../store.js';
 import CompanySelect from './CompanySelect.jsx';
+import Immutable from 'immutable';
+import {
+    getUnbilledTasks,
+} from '../modules/Tasks/action';
 
 class InvoiceForm extends React.Component {
     constructor(props) {
@@ -36,6 +40,8 @@ class InvoiceForm extends React.Component {
                     type: 'ADD_INVOICE',
                     invoice
                 });
+
+                getUnbilledTasks();
             })
             .catch(function (err) {
                 console.log('Error adding invoice.');

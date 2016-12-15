@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import store from '../store.js';
+import {
+    deleteInvoice,
+    payInvoice,
+} from '../modules/Invoices/action';
 
 class InvoiceItem extends React.Component {
     constructor(props) {
@@ -16,40 +20,48 @@ class InvoiceItem extends React.Component {
             return;
         }
 
-        axios.post('/api/invoices/delete', {
-            id: id    
-            })
-            .then(function (response) {
-                var data = response.data;
-                var invoice = {id: id};
+        deleteInvoice(id);
+    }
 
-                if (data.status == 'ok') {
-                    store.dispatch({
-                        type: 'DELETE_INVOICE',
-                        invoice
-                    });
-                } else {
-                    alert(data.msg);
-                }
-            })
-            .catch(function (err) {
-                console.log('Error deleting invoice.');
-                console.log(err);
-            });
+    pay(id, e) {
+        e.nativeEvent.preventDefault();
+
+        if (!confirm('Are you sure you want to mark this invoice as paid?')) {
+            return;
+        }
+
+        payInvoice(id);
+    }
+
+    check(id, e) {
+        var chk = e.target;
+        var invoice = {
+            id: chk.value,
+            checked: chk.checked
+        }
+
+        store.dispatch({
+            type: 'INVOICE_CHECKED',
+            invoice
+        });
     }
 
     render() {
-        var props = this.props;
+        const {invoice} = this.props;
+        const {id, tag, company, description, total, created_at} = invoice;
 
         return (
-            <tr key={props.invoice.id}>
+            <tr key={id}>
                 <td className="icons">
-                    <a href="#" onClick={(e) => this.delete(props.invoice.id, e)}><span className="fa fa-trash-o"></span></a>
+                    <a href="#" onClick={(e) => this.delete(id, e)}><span className="fa fa-trash-o"></span></a>
                 </td>
-                <td><a href={'/invoice/' + props.invoice.tag} target="_blank">{props.invoice.company.name}</a></td>
-                <td><a href={'/invoice/' + props.invoice.tag} target="_blank">{props.invoice.description}</a></td>
-                <td>TODO</td>
-                <td>{props.invoice.created_at}</td>
+                <td>
+                    <a href="#" onClick={(e) => this.pay(id, e)}><span className="fa fa-usd"></span></a>
+                </td>
+                <td><a href={'/invoice/' + tag} target="_blank">{company.name}</a></td>
+                <td><a href={'/invoice/' + tag} target="_blank">{description}</a></td>
+                <td>${total}</td>
+                <td>{created_at}</td>
             </tr>
         )
     }

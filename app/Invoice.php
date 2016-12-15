@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model {
+    protected $appends = [
+        'total'
+    ];
+
     public function company() {
         return $this->belongsTo('App\Company');
     }
@@ -15,6 +19,10 @@ class Invoice extends Model {
 
     public function tasks() {
         return $this->hasMany('App\Task')->orderBy('created_at');
+    }
+
+    public function getTotalAttribute() {
+        return $this->tasks->sum('hours') * $this->rate;
     }
 
     public function generateTag() {

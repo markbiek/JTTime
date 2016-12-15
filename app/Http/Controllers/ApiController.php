@@ -156,7 +156,39 @@ class ApiController extends Controller {
                 $data['msg'] = $invoice->id;
                 $data['status'] = 'ok';
 
+                //Mark all invoice tasks as unbilled
+                foreach ($invoice->tasks as $task) {
+                    $task->invoice_id = null;
+                    $task->billed = 0;
+                    $task->save();
+                }
+
                 $invoice->delete();
+            } else {
+                $data['msg'] = 'Permission denied.';
+            }
+        } else {
+            $data['msg'] = 'Invoice not found.';
+        }
+
+        return response()->json($data);
+    }
+
+    public function payInvoice(Request $request) {
+        $invoice = Invoice::where('id', $request->input('id'))->first();
+
+        $data = [
+            'msg' => '',
+            'status' => 'error'
+        ];
+
+        if (!empty($invoice)) {
+            if ($invoice->user_id == Auth::user()->id) {
+                $invoice->paid = true;
+                $invoice->save();
+
+                $data['msg'] = $invoice->id;
+                $data['status'] = 'ok';
             } else {
                 $data['msg'] = 'Permission denied.';
             }

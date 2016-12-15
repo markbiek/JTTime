@@ -18,6 +18,7 @@ const metaReducer = function (state = metaInitialState, action) {
 /** Invoice Store **/
 const invoiceInitialState = Immutable.fromJS({
     invoices: [],
+    checked: {},
     form: {
 
     }
@@ -39,10 +40,17 @@ const invoiceReducer = function (state = invoiceInitialState, action) {
                 return o.id != action.invoice.id;
             }));
 
+            return state.set('invoices', invoices);
+
         case 'INVOICE_FORM_CHANGE':
             var form = state.get('form').set(action.form.prop, action.form.value);
 
             return state.set('form', form);
+
+        case 'INVOICE_CHECKED':
+            var checked = state.get('checked').set(action.invoice.id, action.invoice.checked);
+
+            return state.set('checked', checked);
     }
 
     return state;

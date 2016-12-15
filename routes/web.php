@@ -27,3 +27,4 @@ Route::post('/api/tasks/delete', 'ApiController@deleteTask');
 Route::get('/api/invoices', 'ApiController@invoices');
 Route::post('/api/invoices/add', 'ApiController@storeInvoice');
 Route::post('/api/invoices/delete', 'ApiController@deleteInvoice');
+Route::post('/api/invoices/pay', 'ApiController@payInvoice');
