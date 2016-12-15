@@ -3,50 +3,24 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Immutable from 'immutable';
 import store from '../store.js';
+import {
+    getUnbilledTasks,
+} from '../modules/Tasks/action';
+import {
+    getUnpaidInvoices,
+} from '../modules/Invoices/action';
+import {
+    getCompanies,
+} from '../modules/Companies/action';
 import TaskList from './TaskList.jsx';
 import TaskForm from './TaskForm.jsx';
 import InvoiceList from './InvoiceList.jsx';
 
 class Dashboard extends React.Component {
     componentDidMount() {
-        axios.get('/api/invoices?status=unpaid')
-            .then(function (response) {
-                var invoices = Immutable.fromJS(response.data);
-
-                store.dispatch({
-                    type: 'GET_UNPAID_INVOICES',
-                    invoices
-                });
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-
-        axios.get('/api/tasks?status=unbilled')
-            .then(function (response) {
-                var tasks = Immutable.fromJS(response.data);
-
-                store.dispatch({
-                    type: 'GET_BILLED_TASKS',
-                    tasks
-                });
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-
-        axios.get('/api/companies')
-            .then((response) => {
-                var companies = Immutable.fromJS(response.data);
-
-                store.dispatch({
-                    type: 'GET_COMPANIES',
-                    companies 
-                });
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
+        getUnpaidInvoices();
+        getUnbilledTasks();
+        getCompanies();
     }
 
     render() {

@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Immutable from 'immutable';
 import store from '../../store.js';
+<<<<<<< HEAD
 import {
     getUnbilledTasks,
 } from '../Tasks/action';
+=======
+>>>>>>> bade9bd... Refactored ajax calls into modules
 
 export const getUnpaidInvoices = () => {
     axios.get('/api/invoices?status=unpaid')
@@ -21,6 +24,7 @@ export const getUnpaidInvoices = () => {
         console.log(err);
     });
 };
+<<<<<<< HEAD
 
 export const deleteInvoice = (id) => {
     axios.post('/api/invoices/delete', {
@@ -65,3 +69,5 @@ export const payInvoice = (id) => {
             console.log(err);
         });
 };
+=======
+>>>>>>> bade9bd... Refactored ajax calls into modules

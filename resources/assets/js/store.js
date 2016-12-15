@@ -75,7 +75,7 @@ const taskReducer = function (state = taskInitialState, action) {
 
             return state.set('checked', checked);
 
-        case 'GET_BILLED_TASKS':
+        case 'GET_UNBILLED_TASKS':
             return state.set('tasks', action.tasks);
 
         case 'ADD_TASK':
