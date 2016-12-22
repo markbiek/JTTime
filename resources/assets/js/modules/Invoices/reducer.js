@@ -1,7 +1,7 @@
-import Immutable from 'immutable';
+import { fromJS, List } from 'immutable';
 
 /** Invoice Store **/
-const invoiceInitialState = Immutable.fromJS({
+const invoiceInitialState = fromJS({
     invoices: [],
     checked: {},
     form: {
@@ -20,7 +20,7 @@ export const invoiceReducer = function (state = invoiceInitialState, action) {
             return state.set('invoices', invoices);
 
         case 'DELETE_INVOICE':
-            var invoices = Immutable.List(_.filter(state.get('invoices').toArray(), function (o) {
+            var invoices = List(_.filter(state.get('invoices').toArray(), function (o) {
                 o = o.toObject();
                 return o.id != action.invoice.id;
             }));

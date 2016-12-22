@@ -1,7 +1,7 @@
-import Immutable from 'immutable';
+import { fromJS, List} from 'immutable';
 
 /** Task Store **/
-const taskInitialState = Immutable.fromJS({
+const taskInitialState = fromJS({
     tasks: [],
     checked: {},
     form: {
@@ -28,7 +28,7 @@ export const taskReducer = function (state = taskInitialState, action) {
             return state.set('tasks', tasks);
 
         case 'DELETE_TASK':
-            var tasks = Immutable.List(_.filter(state.get('tasks').toArray(), function (o) {
+            var tasks = List(_.filter(state.get('tasks').toArray(), function (o) {
                 o = o.toObject();
                 return o.id != action.task.id;
             }));

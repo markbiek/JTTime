@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
 import store from '../store.js';
 import InvoiceItem from './InvoiceItem.jsx';
 

@@ -1,7 +1,7 @@
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
 
 /** Company Store **/
-const companyInitialState = Immutable.fromJS({
+const companyInitialState = fromJS({
     companies: []
 })
 

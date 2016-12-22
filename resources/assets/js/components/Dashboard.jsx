@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Immutable from 'immutable';
 import store from '../store.js';
 import {
     getUnbilledTasks,

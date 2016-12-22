@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
 import store from '../../store.js';
 import {
     getUnbilledTasks,
@@ -10,7 +10,7 @@ import {
 export const getUnpaidInvoices = () => {
     axios.get('/api/invoices?status=unpaid')
     .then(function (response) {
-        var invoices = Immutable.fromJS(response.data);
+        var invoices = fromJS(response.data);
 
         store.dispatch({
             type: 'GET_UNPAID_INVOICES',

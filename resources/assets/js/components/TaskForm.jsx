@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
 import store from '../store.js';
 import CompanySelect from './CompanySelect.jsx';
 
@@ -25,7 +25,7 @@ class TaskForm extends React.Component {
 
         axios.post('/api/tasks/add', task)
             .then((response) => {
-                var task = Immutable.fromJS(response.data);
+                var task = fromJS(response.data);
 
                 store.dispatch({
                     type: 'ADD_TASK',

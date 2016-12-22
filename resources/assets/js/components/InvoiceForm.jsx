@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import store from '../store.js';
 import CompanySelect from './CompanySelect.jsx';
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
 import {
     getUnbilledTasks,
 } from '../modules/Tasks/action';
@@ -34,7 +34,7 @@ class InvoiceForm extends React.Component {
 
         axios.post('/api/invoices/add', invoice)
             .then(function (response) {
-                var invoice = Immutable.fromJS(response.data);
+                var invoice = fromJS(response.data);
 
                 store.dispatch({
                     type: 'ADD_INVOICE',
