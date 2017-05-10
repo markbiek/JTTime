@@ -35,7 +35,7 @@ class TaskList extends React.Component {
                         <tbody>
                         {
                             this.props.tasks.toArray().map(task => {
-                                task = task.toObject();
+                                task = task.toJS();
                                 return (
                                     <TaskItem key={task.id} task={task} />
                                 )
