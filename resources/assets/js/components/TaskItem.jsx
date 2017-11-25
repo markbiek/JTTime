@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import store from '../store.js';
 
+import EditableLabel from './EditableLabel.jsx';
+
 class TaskItem extends React.Component {
     constructor(props) {
         super(props);
@@ -64,7 +66,14 @@ class TaskItem extends React.Component {
                     <input type="checkbox" value={props.task.id} onClick={(e) => this.check(props.task.id, e)} />
                 </td>
                 <td>{props.task.company.name}</td>
-                <td>{props.task.task}</td>
+                <td>
+                    <EditableLabel
+                        initialValue={props.task.task}
+                        store={value => {
+                            console.log(`store: ${value}`);
+                        }}
+                    />
+                </td>
                 <td>{props.task.hours}</td>
                 <td>{props.task.created_at}</td>
             </tr>
