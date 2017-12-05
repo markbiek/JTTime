@@ -1,8 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "prod": "gulp --production",
-    "dev": "gulp watch"
+    "build": "webpack",
+    "watch": "webpack --progress --watch",
+    "clean": "rm -f public/js/* && rm -f public/css/*",
+    "dev": "npm run build",
+    "prod": "npm run build"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
