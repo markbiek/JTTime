@@ -21,6 +21,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/api/companies', 'ApiController@companies');
 
 Route::get('/api/tasks', 'ApiController@tasks');
+Route::get('/api/tasks/totals', 'ApiController@task_totals');
 Route::post('/api/tasks/add', 'ApiController@storeTask');
 Route::post('/api/tasks/delete', 'ApiController@deleteTask');
 

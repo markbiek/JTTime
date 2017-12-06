@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests;
 use Auth;
@@ -36,6 +37,23 @@ class ApiController extends Controller {
         $data = $tasks->toArray();
 
         return response()->json($data);
+    }
+
+    /**
+     * Return total unbilled amounts per company
+     */
+    public function task_totals(Request $request) {
+        $user = Auth::user();
+
+        $ret = DB::table('tasks')
+                ->leftJoin('companies', 'companies.id', 'tasks.company_id')
+                ->where('tasks.user_id', $user->id)
+                ->where('tasks.billed', false)
+                ->groupBy('tasks.company_id')
+                ->select(DB::raw('companies.name as company_name, ROUND(SUM(tasks.hours * companies.default_rate), 2) as unbilled'))
+                ->get();
+
+        return response()->json($ret);
     }
 
     public function companies(Request $request) {
