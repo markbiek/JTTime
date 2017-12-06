@@ -2,6 +2,7 @@ import { fromJS, List} from 'immutable';
 
 /** Task Store **/
 const taskInitialState = fromJS({
+    totals: [],
     tasks: [],
     checked: {},
     form: {
@@ -18,6 +19,9 @@ export const taskReducer = function (state = taskInitialState, action) {
             var checked = state.get('checked').set(action.task.id, action.task.checked);
 
             return state.set('checked', checked);
+
+        case 'GET_UNBILLED_TASK_TOTALS':
+            return state.set('totals', action.totals);
 
         case 'GET_UNBILLED_TASKS':
             return state.set('tasks', action.tasks);

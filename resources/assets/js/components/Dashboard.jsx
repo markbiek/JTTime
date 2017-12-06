@@ -11,6 +11,7 @@ import {
 import {
     getCompanies,
 } from '../modules/Companies/action';
+import TaskTotals from './TaskTotals.jsx';
 import TaskList from './TaskList.jsx';
 import TaskForm from './TaskForm.jsx';
 import InvoiceList from './InvoiceList.jsx';
@@ -28,6 +29,7 @@ class Dashboard extends React.Component {
                 <h1>Time Dashboard</h1>
 
                 <TaskForm />
+                <TaskTotals />
                 <TaskList />
 
                 <InvoiceList />

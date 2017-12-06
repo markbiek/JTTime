@@ -18,3 +18,18 @@ export const getUnbilledTasks = () => {
         console.log(err);
     });
 };
+
+export const getUnbilledTaskTotals = () => {
+    axios.get('/api/tasks/totals')
+    .then(resp => {
+        let totals = fromJS(resp.data);
+
+        store.dispatch({
+            type: 'GET_UNBILLED_TASK_TOTALS',
+            totals
+        })
+    })
+    .catch(err => {
+        console.log(err);
+    });
+};
