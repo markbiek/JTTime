@@ -32,7 +32,7 @@ echo json_encode([ 'csrfToken' => csrf_token(), ]);
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top noprint">
+    <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
 
