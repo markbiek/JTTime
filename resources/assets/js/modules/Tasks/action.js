@@ -33,3 +33,18 @@ export const getUnbilledTaskTotals = () => {
         console.log(err);
     });
 };
+
+export const combineTasks = (tasks) => {
+    console.log('combineTasks');
+
+    axios.post('/api/tasks/combine', {tasks})
+    .then(resp => {
+        console.log(resp.data)
+        if (resp.status == 'error') {
+            alert(resp.msg);
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    });
+};

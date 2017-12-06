@@ -4,7 +4,43 @@ import store from '../store.js';
 import TaskItem from './TaskItem.jsx';
 import InvoiceForm from './InvoiceForm.jsx';
 
+import {
+    getUnbilledTasks,
+    getUnbilledTaskTotals,
+    combineTasks
+} from '../modules/Tasks/action';
+
 class TaskList extends React.Component {
+    combineButton() {
+        const { checked } = this.props;
+
+        const all = checked.toJS();
+        let tasks = [];
+        for (let k in all) {
+            if (all[k]) {
+                tasks.push(k);
+            }
+        }
+
+        if (tasks.length > 1) {
+            return (
+                <button className="btn btn-default" onClick={async e => {
+                    e.preventDefault();
+
+                    if (confirm('Are you sure you want to combine these tasks? This cannot be undone.')) {
+                        await combineTasks(tasks);
+                        await store.dispatch({type: 'CLEAR_CHECKED_TASKS'});
+
+                        getUnbilledTasks();
+                        getUnbilledTaskTotals();
+                    }
+                }}>Combine Tasks</button>
+            );
+        } else {
+            return null;
+        }
+    }
+
     render() {
         var props = this.props;
 
@@ -21,6 +57,9 @@ class TaskList extends React.Component {
                 <div>
                     <InvoiceForm checkedTasks={props.checked} />
                     <h2>Unbilled Tasks</h2>
+                    <div className="actions">
+                        { this.combineButton() }
+                    </div>
                     <table className="table table-striped">
                         <thead>
                             <tr>

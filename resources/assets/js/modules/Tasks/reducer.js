@@ -20,6 +20,9 @@ export const taskReducer = function (state = taskInitialState, action) {
 
             return state.set('checked', checked);
 
+        case 'CLEAR_CHECKED_TASKS':
+            return state.set('checked', fromJS({}));
+
         case 'GET_UNBILLED_TASK_TOTALS':
             return state.set('totals', action.totals);
 

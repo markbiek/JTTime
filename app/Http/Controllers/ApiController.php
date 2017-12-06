@@ -103,6 +103,54 @@ class ApiController extends Controller {
         return response()->json($data);
     }
 
+    public function combineTasks(Request $request) {
+        $user = Auth::user();
+        $taskIds = $request->input('tasks');
+
+        $data = [
+            'msg' => '',
+            'status' => 'error'
+        ];
+
+        try {
+            if (empty($taskIds)) {
+                throw new \Exception('Invalid request');
+            }
+
+            $tasks = Task::whereIn('id', $taskIds)->get()->toArray();
+            $fields = [
+                'hours' => 0,
+                'user_id' => $user->id,
+                'task' => $tasks[0]['task'],
+                'company_id' => $tasks[0]['company_id']
+            ];
+
+            array_map(function ($task) use (&$fields) {
+                if ($task['billed']) {
+                    throw new \Exception("Cannot combine billed tasks.");
+                }
+                if ($task['company_id'] != $fields['company_id']) {
+                    throw new \Exception("Cannot combine tasks from different companies.");
+                }
+
+                $fields['hours'] += $task['hours'];
+            }, $tasks);
+
+            $task = Task::create($fields);
+            if ($task->exists) {
+                Task::whereIn('id', $taskIds)->delete();
+
+                $data['status'] = 'ok';
+            } else {
+                $data['msg'] = 'Could not create combined task';
+            }
+        } catch (\Exception $e) {
+            $data['msg'] = "Error combining tasks: " . $e->getMessage();
+        }
+
+        return response()->json($data);
+    }
+
     public function invoices(Request $request) {
         $user = Auth::user();
         $status = $request->input('status', 'unpaid');

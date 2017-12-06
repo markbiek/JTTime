@@ -14,8 +14,6 @@ class TaskTotals extends React.Component {
     render() {
         const { totals } = this.props.taskState.toJS();
 
-        console.log(totals);
-
         if (totals == undefined || totals.length <= 0) {
             return null;
         }

@@ -24,6 +24,7 @@ Route::get('/api/tasks', 'ApiController@tasks');
 Route::get('/api/tasks/totals', 'ApiController@task_totals');
 Route::post('/api/tasks/add', 'ApiController@storeTask');
 Route::post('/api/tasks/delete', 'ApiController@deleteTask');
+Route::post('/api/tasks/combine', 'ApiController@combineTasks');
 
 Route::get('/api/invoices', 'ApiController@invoices');
 Route::post('/api/invoices/add', 'ApiController@storeInvoice');

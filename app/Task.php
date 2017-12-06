@@ -5,6 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model {
+    protected $fillable = [
+        'hours',
+        'user_id',
+        'task',
+        'company_id'
+    ];
+
     public function company() {
         return $this->belongsTo('App\Company');
     }

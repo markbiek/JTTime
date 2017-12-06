@@ -73,7 +73,7 @@ class TaskForm extends React.Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="hours">Hours:</label>
-                            <input type="number" id="hours" className="form-control" placeholder="Hours" onChange={this.change} />
+                            <input type="number" id="hours" className="form-control" placeholder="Hours" min="0" onChange={this.change} />
                         </div>
                         <div className="form-group">
                             <button type="button" className="btn btn-primary" onClick={this.submit}>Save</button>
