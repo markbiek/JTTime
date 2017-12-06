@@ -97,7 +97,11 @@ class ApiController extends Controller {
             $invoices = $invoices->where('paid', true);
         }
 
-        $invoices = $invoices->with('company')->orderBy('created_at', 'desc')->get();
+        $invoices = $invoices
+                    ->with('company')
+                    ->where('created_at', '>=', date('Y-01-01 00:00:00'))
+                    ->orderBy('created_at', 'desc')
+                    ->get();
 
         $data = $invoices->toArray();
 
