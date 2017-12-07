@@ -2,6 +2,10 @@ import { fromJS, List} from 'immutable';
 
 /** Task Store **/
 const taskInitialState = fromJS({
+    loading: false,
+    errored: false,
+    error: '',
+    complete: false,
     totals: [],
     tasks: [],
     checked: {},
@@ -15,6 +19,18 @@ const taskInitialState = fromJS({
 
 export const taskReducer = function (state = taskInitialState, action) {
     switch (action.type) {
+        case 'TASKS_IS_LOADING':
+            return state.set('loading', action.loading);
+
+        case 'TASKS_IS_ERRORED':
+            return state.set('errored', action.errored).set('error', action.error);
+
+        case 'TASKS_IS_COMPLETE':
+            return state.set('complete', action.complete).set('tasks', action.tasks);
+
+        case 'TASK_TOTALS_IS_COMPLETE':
+            return state.set('totals', action.totals);
+
         case 'TASK_CHECKED':
             var checked = state.get('checked').set(action.task.id, action.task.checked);
 
@@ -22,12 +38,6 @@ export const taskReducer = function (state = taskInitialState, action) {
 
         case 'CLEAR_CHECKED_TASKS':
             return state.set('checked', fromJS({}));
-
-        case 'GET_UNBILLED_TASK_TOTALS':
-            return state.set('totals', action.totals);
-
-        case 'GET_UNBILLED_TASKS':
-            return state.set('tasks', action.tasks);
 
         case 'ADD_TASK':
             var tasks = state.get('tasks').push(action.task);

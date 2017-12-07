@@ -16,10 +16,12 @@ import TaskList from './TaskList.jsx';
 import TaskForm from './TaskForm.jsx';
 import InvoiceList from './InvoiceList.jsx';
 
+const { dispatch } = store;
+
 class Dashboard extends React.Component {
     componentDidMount() {
-        getUnpaidInvoices();
-        getUnbilledTasks();
+        dispatch(getUnpaidInvoices());
+        dispatch(getUnbilledTasks());
         getCompanies();
     }
 

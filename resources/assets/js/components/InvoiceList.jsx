@@ -5,7 +5,18 @@ import InvoiceItem from './InvoiceItem.jsx';
 
 class InvoiceList extends React.Component {
     render() {
-        var invoices = this.props.invoices.toArray();
+        const { loading, errored, complete, error, invoices } = this.props.invoiceState;
+
+        if (loading || !invoices) {
+            return null;
+        }
+
+        /*
+        if (errored) {
+            alert(`Error loading invoices: ${error}`);
+            return null;
+        }
+       */
 
         if (invoices.length <= 0) {
             return (
@@ -33,9 +44,6 @@ class InvoiceList extends React.Component {
                         <tbody>
                         {
                             invoices.map(invoice => {
-                                invoice = invoice.toObject();
-                                invoice.company = invoice.company.toObject();
-
                                 return (
                                     <InvoiceItem key={invoice.id} invoice={invoice} />
                                 )
@@ -51,7 +59,7 @@ class InvoiceList extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        invoices: store.invoiceState.get('invoices')
+        invoiceState: store.invoiceState.toJS(),
     };
 };
 

@@ -8,7 +8,10 @@ import CompanySelect from './CompanySelect.jsx';
 import {
     actionAddTask,
     actionTaskFormChange,
+    getUnbilledTaskTotals,
 } from '../modules/Tasks/action';
+
+const { dispatch } = store;
 
 class TaskForm extends React.Component {
     constructor(props) {
@@ -32,7 +35,8 @@ class TaskForm extends React.Component {
             .then((response) => {
                 var task = fromJS(response.data);
 
-                store.dispatch(actionAddTask(task));
+                dispatch(actionAddTask(task));
+                dispatch(getUnbilledTaskTotals());
 
                 this.clearForm();
             })
@@ -49,7 +53,7 @@ class TaskForm extends React.Component {
             value: elem.value
         };
 
-        store.dispatch(actionTaskFormChange(form));
+        dispatch(actionTaskFormChange(form));
     }
 
     render() {

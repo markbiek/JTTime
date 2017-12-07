@@ -40,9 +40,8 @@ class InvoiceForm extends React.Component {
             .then(function (response) {
                 var invoice = fromJS(response.data);
 
-                store.dispatch(actionAddInvoice(invoice));
-
-                getUnbilledTasks();
+                dispatch(actionAddInvoice(invoice));
+                dispatch(getUnbilledTasks());
             })
             .catch(function (err) {
                 console.log('Error adding invoice.');

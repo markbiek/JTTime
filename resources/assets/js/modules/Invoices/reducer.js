@@ -2,17 +2,25 @@ import { fromJS, List } from 'immutable';
 
 /** Invoice Store **/
 const invoiceInitialState = fromJS({
+    loading: false,
+    errored: false,
+    error: '',
+    complete: false,
     invoices: [],
     checked: {},
-    form: {
-
-    }
+    form: {}
 })
 
 export const invoiceReducer = function (state = invoiceInitialState, action) {
     switch (action.type) {
-        case 'GET_UNPAID_INVOICES':
-            return state.set('invoices', action.invoices);
+        case 'INVOICES_IS_LOADING':
+            return state.set('loading', action.loading);
+
+        case 'INVOICES_IS_ERRORED':
+            return state.set('errored', action.errored).set('error', action.error);
+
+        case 'INVOICES_IS_COMPLETE':
+            return state.set('complete', action.complete).set('invoices', action.invoices);
 
         case 'ADD_INVOICE':
             var invoices = state.get('invoices').push(action.invoice);

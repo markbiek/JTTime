@@ -5,9 +5,12 @@ import store from '../store.js';
 import {
     actionDeleteTask,
     actionTaskChecked,
+    getUnbilledTaskTotals,
 } from '../modules/Tasks/action';
 
 import EditableLabel from './EditableLabel.jsx';
+
+const { dispatch } = store;
 
 class TaskItem extends React.Component {
     constructor(props) {
@@ -32,7 +35,8 @@ class TaskItem extends React.Component {
                 var task = {id: id};
 
                 if (data.status == 'ok') {
-                    store.dispatch(actionDeleteTask(task));
+                    dispatch(actionDeleteTask(task));
+                    dispatch(getUnbilledTaskTotals());
                 } else {
                     alert(data.msg);
                 }

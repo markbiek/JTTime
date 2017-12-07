@@ -7,25 +7,43 @@ import {
     getUnbilledTasks,
 } from '../Tasks/action';
 
+const { dispatch } = store;
+
 // Actions
-export function actionGetUnpaidInvoices(invoices) {
-    return {
-        type: 'GET_UNPAID_INVOICES',
-        invoices
+export function actionInvoicesIsLoading(bool) {
+    return dispatch => {
+        if (bool) {
+            dispatch(actionInvoicesIsErrored(false, null));
+            dispatch(actionInvoicesIsComplete(null));
+        }
+
+        dispatch({
+            type: 'INVOICES_IS_LOADING',
+            loading: bool
+        });
     };
 }
 
-export function actionDeleteInvoice(invoice) {
-    return {
-        type: 'DELETE_INVOICE',
-        invoice
-    };
+export function actionInvoicesIsErrored(bool, err) {
+    return dispatch({
+        type: 'INVOICES_IS_ERRORED',
+        errored: bool,
+        error: err
+    });
 }
 
-export function actionInvoiceChecked(invoice) {
+export function actionInvoicesIsComplete(invoices) {
+    return dispatch({
+        type: 'INVOICES_IS_COMPLETE',
+        complete: invoices !== null,
+        invoices: invoices
+    });
+}
+
+export function actionInvoiceFormChange(form) {
     return {
-        type: 'INVOICE_CHECKED',
-        invoice
+        type: 'INVOICE_FORM_CHANGE',
+        form
     };
 }
 
@@ -36,26 +54,29 @@ export function actionAddInvoice(invoice) {
     };
 }
 
-export function actionInvoiceFormChange(form) {
+export function actionDeleteInvoice(invoice) {
     return {
-        type: 'INVOICE_FORM_CHANGE',
-        form
+        type: 'DELETE_INVOICE',
+        invoice
     };
 }
 
-// Helper functions
-
 export const getUnpaidInvoices = () => {
-    axios.get('/api/invoices?status=unpaid')
-    .then(response => {
-        var invoices = fromJS(response.data);
+    return dispatch => {
+        dispatch(actionInvoicesIsLoading(true));
 
-        store.dispatch(actionGetUnpaidInvoices(invoices));
-    })
-    .catch(function (err) {
-        console.log(err);
-    });
-};
+        axios.get('/api/invoices?status=unpaid')
+        .then(response => {
+            var invoices = fromJS(response.data);
+
+            dispatch(actionInvoicesIsLoading(false));
+            dispatch(actionInvoicesIsComplete(invoices))
+        })
+        .catch(err => {
+            dispatch(actionInvoicesIsErrored(true, err));
+        });
+    };
+}
 
 export const deleteInvoice = (id) => {
     axios.post('/api/invoices/delete', {
@@ -66,9 +87,9 @@ export const deleteInvoice = (id) => {
             var invoice = {id: id};
 
             if (data.status == 'ok') {
-                store.dispatch(actionDeleteInvoice(invoice));
+                dispatch(actionDeleteInvoice(invoice));
 
-                getUnbilledTasks();
+                dispatch(getUnbilledTasks());
             } else {
                 alert(data.msg);
             }
@@ -87,7 +108,7 @@ export const payInvoice = (id) => {
             var data = response.data;
 
             if (data.status == 'ok') {
-                getUnpaidInvoices();
+                dispatch(getUnpaidInvoices());
             } else {
                 alert(data.msg);
             }

@@ -39,6 +39,7 @@
     "react-editable-label": "^0.1.2",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "redux-thunk": "^2.2.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
     "whatwg-fetch": "^2.0.3"

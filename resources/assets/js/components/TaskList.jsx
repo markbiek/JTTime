@@ -13,9 +13,9 @@ import {
 
 class TaskList extends React.Component {
     combineButton() {
-        const { checked } = this.props;
+        const { checked } = this.props.taskState;
 
-        const all = checked.toJS();
+        const all = checked;
         let tasks = [];
         for (let k in all) {
             if (all[k]) {
@@ -32,7 +32,7 @@ class TaskList extends React.Component {
                         await combineTasks(tasks);
                         await store.dispatch(actionClearCheckedTasks(actionClearCheckedTasks()));
 
-                        getUnbilledTasks();
+                        dispatch(getUnbilledTasks());
                         getUnbilledTaskTotals();
                     }
                 }}>Combine Tasks</button>
@@ -43,9 +43,13 @@ class TaskList extends React.Component {
     }
 
     render() {
-        var props = this.props;
+        const { checked, loading, errored, complete, error, tasks } = this.props.taskState;
 
-        if (props.tasks.size <= 0) {
+        if (loading) {
+            return null;
+        }
+
+        if (!tasks || tasks.length <= 0) {
             return (
                 <div>
                     <h2>Unbilled Tasks</h2>
@@ -56,7 +60,7 @@ class TaskList extends React.Component {
         } else {
             return (
                 <div>
-                    <InvoiceForm checkedTasks={props.checked} />
+                    <InvoiceForm checkedTasks={checked} />
                     <h2>Unbilled Tasks</h2>
                     <div className="actions">
                         { this.combineButton() }
@@ -74,8 +78,8 @@ class TaskList extends React.Component {
                         </thead>
                         <tbody>
                         {
-                            this.props.tasks.toArray().map(task => {
-                                task = task.toJS();
+                            tasks.map(task => {
+                                task = task;
                                 return (
                                     <TaskItem key={task.id} task={task} />
                                 )
@@ -91,8 +95,7 @@ class TaskList extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        tasks: store.taskState.get('tasks'),
-        checked: store.taskState.get('checked')
+        taskState: store.taskState.toJS()
     };
 };
 
