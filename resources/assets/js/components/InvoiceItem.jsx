@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import store from '../store.js';
 import {
+    actionInvoiceChecked,
     deleteInvoice,
     payInvoice,
 } from '../modules/Invoices/action';
@@ -40,10 +41,7 @@ class InvoiceItem extends React.Component {
             checked: chk.checked
         }
 
-        store.dispatch({
-            type: 'INVOICE_CHECKED',
-            invoice
-        });
+        store.dispatch(actionInvoiceChecked(invoice));
     }
 
     render() {

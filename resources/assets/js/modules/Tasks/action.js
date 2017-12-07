@@ -4,15 +4,63 @@ import axios from 'axios';
 import { fromJS } from 'immutable';
 import store from '../../store.js';
 
+// Actions
+export function actionGetUnbilledTasks(tasks) {
+    return {
+        type: 'GET_UNBILLED_TASKS',
+        tasks
+    };
+}
+
+export function actionGetUnbilledTaskTotals(totals) {
+    return {
+        type: 'GET_UNBILLED_TASK_TOTALS',
+        totals
+    };
+}
+
+export function actionClearCheckedTasks() {
+    return {
+        type: 'CLEAR_CHECKED_TASKS'
+    };
+}
+
+export function actionDeleteTask(task) {
+    return {
+        type: 'DELETE_TASK',
+        task
+    };
+}
+
+export function actionTaskChecked(task) {
+    return {
+        type: 'TASK_CHECKED',
+        task
+    };
+}
+
+export function actionAddTask(task) {
+    return {
+        type: 'ADD_TASK',
+        task
+    };
+}
+
+export function actionTaskFormChange(form) {
+    return {
+        type: 'TASK_FORM_CHANGE',
+        form
+    };
+}
+
+// Helper functions
+
 export const getUnbilledTasks = () => {
     axios.get('/api/tasks?status=unbilled')
     .then(function (response) {
         var tasks = fromJS(response.data);
 
-        store.dispatch({
-            type: 'GET_UNBILLED_TASKS',
-            tasks
-        });
+        store.dispatch(actionGetUnbilledTasks(tasks));
     })
     .catch(function (err) {
         console.log(err);
@@ -24,10 +72,7 @@ export const getUnbilledTaskTotals = () => {
     .then(resp => {
         let totals = fromJS(resp.data);
 
-        store.dispatch({
-            type: 'GET_UNBILLED_TASK_TOTALS',
-            totals
-        })
+        store.dispatch(actionGetUnbilledTaskTotals(totals));
     })
     .catch(err => {
         console.log(err);

@@ -7,6 +7,10 @@ import { fromJS } from 'immutable';
 import {
     getUnbilledTasks,
 } from '../modules/Tasks/action';
+import {
+    actionAddInvoice,
+    actionInvoiceFormChange,
+} from '../modules/Invoices/action';
 
 class InvoiceForm extends React.Component {
     constructor(props) {
@@ -36,10 +40,7 @@ class InvoiceForm extends React.Component {
             .then(function (response) {
                 var invoice = fromJS(response.data);
 
-                store.dispatch({
-                    type: 'ADD_INVOICE',
-                    invoice
-                });
+                store.dispatch(actionAddInvoice(invoice));
 
                 getUnbilledTasks();
             })
@@ -56,10 +57,7 @@ class InvoiceForm extends React.Component {
             value: elem.value
         };
 
-        store.dispatch({
-            type: 'INVOICE_FORM_CHANGE',
-            form
-        });
+        store.dispatch(actionInvoiceFormChange(form));
     }
 
     render() {

@@ -7,15 +7,50 @@ import {
     getUnbilledTasks,
 } from '../Tasks/action';
 
+// Actions
+export function actionGetUnpaidInvoices(invoices) {
+    return {
+        type: 'GET_UNPAID_INVOICES',
+        invoices
+    };
+}
+
+export function actionDeleteInvoice(invoice) {
+    return {
+        type: 'DELETE_INVOICE',
+        invoice
+    };
+}
+
+export function actionInvoiceChecked(invoice) {
+    return {
+        type: 'INVOICE_CHECKED',
+        invoice
+    };
+}
+
+export function actionAddInvoice(invoice) {
+    return {
+        type: 'ADD_INVOICE',
+        invoice
+    };
+}
+
+export function actionInvoiceFormChange(form) {
+    return {
+        type: 'INVOICE_FORM_CHANGE',
+        form
+    };
+}
+
+// Helper functions
+
 export const getUnpaidInvoices = () => {
     axios.get('/api/invoices?status=unpaid')
-    .then(function (response) {
+    .then(response => {
         var invoices = fromJS(response.data);
 
-        store.dispatch({
-            type: 'GET_UNPAID_INVOICES',
-            invoices
-        });
+        store.dispatch(actionGetUnpaidInvoices(invoices));
     })
     .catch(function (err) {
         console.log(err);
@@ -31,10 +66,7 @@ export const deleteInvoice = (id) => {
             var invoice = {id: id};
 
             if (data.status == 'ok') {
-                store.dispatch({
-                    type: 'DELETE_INVOICE',
-                    invoice
-                });
+                store.dispatch(actionDeleteInvoice(invoice));
 
                 getUnbilledTasks();
             } else {

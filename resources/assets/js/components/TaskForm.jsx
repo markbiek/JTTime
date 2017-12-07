@@ -5,6 +5,11 @@ import { fromJS } from 'immutable';
 import store from '../store.js';
 import CompanySelect from './CompanySelect.jsx';
 
+import {
+    actionAddTask,
+    actionTaskFormChange,
+} from '../modules/Tasks/action';
+
 class TaskForm extends React.Component {
     constructor(props) {
         super(props);
@@ -27,10 +32,7 @@ class TaskForm extends React.Component {
             .then((response) => {
                 var task = fromJS(response.data);
 
-                store.dispatch({
-                    type: 'ADD_TASK',
-                    task
-                });
+                store.dispatch(actionAddTask(task));
 
                 this.clearForm();
             })
@@ -47,10 +49,7 @@ class TaskForm extends React.Component {
             value: elem.value
         };
 
-        store.dispatch({
-            type: 'TASK_FORM_CHANGE',
-            form
-        });
+        store.dispatch(actionTaskFormChange(form));
     }
 
     render() {

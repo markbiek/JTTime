@@ -5,6 +5,7 @@ import TaskItem from './TaskItem.jsx';
 import InvoiceForm from './InvoiceForm.jsx';
 
 import {
+    actionClearCheckedTasks,
     getUnbilledTasks,
     getUnbilledTaskTotals,
     combineTasks
@@ -29,7 +30,7 @@ class TaskList extends React.Component {
 
                     if (confirm('Are you sure you want to combine these tasks? This cannot be undone.')) {
                         await combineTasks(tasks);
-                        await store.dispatch({type: 'CLEAR_CHECKED_TASKS'});
+                        await store.dispatch(actionClearCheckedTasks(actionClearCheckedTasks()));
 
                         getUnbilledTasks();
                         getUnbilledTaskTotals();

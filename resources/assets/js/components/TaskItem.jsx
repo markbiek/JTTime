@@ -2,6 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import store from '../store.js';
 
+import {
+    actionDeleteTask,
+    actionTaskChecked,
+} from '../modules/Tasks/action';
+
 import EditableLabel from './EditableLabel.jsx';
 
 class TaskItem extends React.Component {
@@ -27,10 +32,7 @@ class TaskItem extends React.Component {
                 var task = {id: id};
 
                 if (data.status == 'ok') {
-                    store.dispatch({
-                        type: 'DELETE_TASK',
-                        task
-                    });
+                    store.dispatch(actionDeleteTask(task));
                 } else {
                     alert(data.msg);
                 }
@@ -48,10 +50,7 @@ class TaskItem extends React.Component {
             checked: chk.checked
         }
 
-        store.dispatch({
-            type: 'TASK_CHECKED',
-            task
-        });
+        store.dispatch(actionTaskChecked(task));
     }
 
     render() {

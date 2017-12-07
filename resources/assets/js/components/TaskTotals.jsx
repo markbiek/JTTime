@@ -18,6 +18,9 @@ class TaskTotals extends React.Component {
             return null;
         }
 
+        console.log('TaskTotals');
+        console.log(totals);
+
         return (
             <div>
                 <h2>Unbilled $</h2>
