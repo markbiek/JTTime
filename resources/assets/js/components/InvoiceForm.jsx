@@ -1,16 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import store from '../store.js';
-import CompanySelect from './CompanySelect.jsx';
 import { fromJS } from 'immutable';
+import store from '../store.js';
+
 import {
     getUnbilledTasks,
 } from '../modules/Tasks/action';
+
 import {
-    actionAddInvoice,
     actionInvoiceFormChange,
+    addInvoice,
 } from '../modules/Invoices/action';
+
+import CompanySelect from './CompanySelect.jsx';
+
+const { dispatch } = store;
 
 class InvoiceForm extends React.Component {
     constructor(props) {
@@ -23,12 +27,11 @@ class InvoiceForm extends React.Component {
     submit(e) {
         e.preventDefault();
     
-        var props = this.props;
         var invoice = this.props.form.toObject();
         invoice.billed = 0;
         invoice.tasks = [];
 
-        var checkedTasks = props.checkedTasks.toObject();
+        const { checkedTasks } = this.props;
 
         for (var i in checkedTasks) {
             if (checkedTasks.hasOwnProperty(i) && checkedTasks[i]) {
@@ -36,17 +39,7 @@ class InvoiceForm extends React.Component {
             }
         }
 
-        axios.post('/api/invoices/add', invoice)
-            .then(function (response) {
-                var invoice = fromJS(response.data);
-
-                dispatch(actionAddInvoice(invoice));
-                dispatch(getUnbilledTasks());
-            })
-            .catch(function (err) {
-                console.log('Error adding invoice.');
-                console.log(err);
-            });
+        dispatch(addInvoice(invoice));
     }
 
     change(e) {
@@ -56,7 +49,7 @@ class InvoiceForm extends React.Component {
             value: elem.value
         };
 
-        store.dispatch(actionInvoiceFormChange(form));
+        dispatch(actionInvoiceFormChange(form));
     }
 
     render() {

@@ -61,6 +61,22 @@ export function actionDeleteInvoice(invoice) {
     };
 }
 
+export const addInvoice = invoice => {
+    return dispatch => {
+        axios.post('/api/invoices/add', invoice)
+        .then(function (response) {
+            invoice = fromJS(response.data);
+
+            dispatch(actionAddInvoice(invoice));
+            dispatch(getUnbilledTasks());
+        })
+        .catch(function (err) {
+            console.log('Error adding invoice.');
+            console.log(err);
+        });
+    };
+};
+
 export const getUnpaidInvoices = () => {
     return dispatch => {
         dispatch(actionInvoicesIsLoading(true));
