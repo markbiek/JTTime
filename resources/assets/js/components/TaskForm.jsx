@@ -6,8 +6,8 @@ import store from '../store.js';
 import CompanySelect from './CompanySelect.jsx';
 
 import {
-    actionAddTask,
     actionTaskFormChange,
+    addTask,
     getUnbilledTaskTotals,
 } from '../modules/Tasks/action';
 
@@ -31,19 +31,9 @@ class TaskForm extends React.Component {
         var task = this.props.form.toObject();
         task.billed = 0;
 
-        axios.post('/api/tasks/add', task)
-            .then((response) => {
-                var task = fromJS(response.data);
+        dispatch(addTask(task));
 
-                dispatch(actionAddTask(task));
-                dispatch(getUnbilledTaskTotals());
-
-                this.clearForm();
-            })
-            .catch(function (err) {
-                console.log('Error adding task.');
-                console.log(err);
-            });
+        this.clearForm();
     }
 
     change(e) {

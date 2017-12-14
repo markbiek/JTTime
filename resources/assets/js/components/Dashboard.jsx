@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import store from '../store.js';
+
 import {
     getUnbilledTasks,
 } from '../modules/Tasks/action';
@@ -11,6 +11,7 @@ import {
 import {
     getCompanies,
 } from '../modules/Companies/action';
+
 import TaskTotals from './TaskTotals.jsx';
 import TaskList from './TaskList.jsx';
 import TaskForm from './TaskForm.jsx';

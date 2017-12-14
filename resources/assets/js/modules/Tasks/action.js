@@ -78,7 +78,46 @@ export function actionTaskFormChange(form) {
     };
 }
 
-// Helper functions
+export const addTask = task => {
+    return dispatch => {
+        axios.post('/api/tasks/add', task)
+        .then((response) => {
+            task = fromJS(response.data);
+
+            dispatch(actionAddTask(task));
+            dispatch(getUnbilledTaskTotals());
+
+            this.clearForm();
+        })
+        .catch(function (err) {
+            console.log('Error adding task.');
+            console.log(err);
+        });
+    };
+};
+
+export const deleteTask = task => {
+    return dispatch => {
+        dispatch(actionDeleteTask(task));
+
+        axios.post('/api/tasks/delete', {
+            id: task.id
+        })
+        .then(function (response) {
+            var data = response.data;
+
+            if (data.status == 'ok') {
+                dispatch(getUnbilledTaskTotals());
+            } else {
+                alert(data.msg);
+            }
+        })
+        .catch(function (err) {
+            console.log('Error deleting task.');
+            console.log(err);
+        });
+    };
+};
 
 export const getUnbilledTasks = () => {
     return dispatch => {

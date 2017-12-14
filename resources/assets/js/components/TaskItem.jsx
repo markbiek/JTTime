@@ -3,8 +3,8 @@ import axios from 'axios';
 import store from '../store.js';
 
 import {
-    actionDeleteTask,
     actionTaskChecked,
+    deleteTask,
     getUnbilledTaskTotals,
 } from '../modules/Tasks/action';
 
@@ -27,24 +27,7 @@ class TaskItem extends React.Component {
             return;
         }
 
-        axios.post('/api/tasks/delete', {
-            id: id    
-            })
-            .then(function (response) {
-                var data = response.data;
-                var task = {id: id};
-
-                if (data.status == 'ok') {
-                    dispatch(actionDeleteTask(task));
-                    dispatch(getUnbilledTaskTotals());
-                } else {
-                    alert(data.msg);
-                }
-            })
-            .catch(function (err) {
-                console.log('Error deleting task.');
-                console.log(err);
-            });
+        dispatch(deleteTask({id: id}));
     }
 
     check(id, e) {
@@ -54,7 +37,7 @@ class TaskItem extends React.Component {
             checked: chk.checked
         }
 
-        store.dispatch(actionTaskChecked(task));
+        dispatch(actionTaskChecked(task));
     }
 
     render() {

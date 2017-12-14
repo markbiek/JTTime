@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import store from '../store.js';
 import {
     getUnbilledTaskTotals
 } from '../modules/Tasks/action';
 
+const { dispatch } = store;
+
 class TaskTotals extends React.Component {
     componentDidMount() {
-        getUnbilledTaskTotals()
+        dispatch(getUnbilledTaskTotals());
     }
 
     render() {
@@ -17,9 +18,6 @@ class TaskTotals extends React.Component {
         if (totals == undefined || totals.length <= 0) {
             return null;
         }
-
-        console.log('TaskTotals');
-        console.log(totals);
 
         return (
             <div>
