@@ -10,20 +10,10 @@
 
     <title>{{ config('app.name', '') }}</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css">
-    <link href="//fonts.googleapis.com/css?family=Alegreya+Sans:400,700" rel="stylesheet" type="text/css">
-    <link href='//fonts.googleapis.com/css?family=Duru+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/app.css">
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/571406dd14.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
     <script>
         window.Laravel = 
 <?php

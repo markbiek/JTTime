@@ -10,7 +10,7 @@ const extractLess = new ExtractTextPlugin({
 });
 
 const config = {
-    entry: [`${APP_DIR}/js/index.jsx`, `${APP_DIR}/less/app.less`, `${APP_DIR}/less/print.less`],
+    entry: [`${APP_DIR}/js/index.jsx`],
     output: {
         path: `${BUILD_DIR}/js`,
         filename: 'bundle.js'
@@ -23,16 +23,6 @@ const config = {
                 loader: 'url-loader?limit=100000'
             },
             {
-                test: /\.less$/,
-                use: extractLess.extract({
-                    use: [{
-                        loader: 'css-loader'
-                    }, {
-                        loader: 'less-loader'
-                    }]
-                })
-            },
-            {
                 test: /\.jsx?/,
                 include: `${APP_DIR}/js`,
                 loader: 'babel-loader',
@@ -43,7 +33,6 @@ const config = {
         ]
     },
     plugins: [
-        extractLess
     ]
 };
 
