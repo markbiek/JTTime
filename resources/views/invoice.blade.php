@@ -11,7 +11,9 @@
     <div class="col-md-3">
         <p>
 <?php
-echo $address->htmlAddress();
+    if (!empty($address)) {
+        echo $address->htmlAddress();
+    }
 ?>
         </p>
     </div>
