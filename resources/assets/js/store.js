@@ -1,14 +1,16 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
+import { metaReducer } from './modules/Meta/reducer';
 import { invoiceReducer } from './modules/Invoices/reducer';
 import { taskReducer } from './modules/Tasks/reducer';
 import { companyReducer } from './modules/Companies/reducer';
 
 const reducers = combineReducers({
+    metaState: metaReducer,
     invoiceState: invoiceReducer,
     taskState: taskReducer,
-    metaState: companyReducer
+    companyState: companyReducer
 });
 
 const store = createStore(

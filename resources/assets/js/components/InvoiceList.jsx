@@ -30,7 +30,7 @@ class InvoiceList extends React.Component {
             return (
                 <div>
                     <h2>Unpaid Invoices</h2>
-                    <table className="table table-striped">
+                    <table className="table is-fullwidth is-hoverable">
                         <thead>
                             <tr>
                                 <th>&nbsp;</th>

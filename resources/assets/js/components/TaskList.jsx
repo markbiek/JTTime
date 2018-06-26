@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store.js';
 import TaskItem from './TaskItem.jsx';
-import InvoiceForm from './InvoiceForm.jsx';
 
 import {
     actionClearCheckedTasks,
@@ -60,7 +59,6 @@ class TaskList extends React.Component {
         } else {
             return (
                 <div>
-                    <InvoiceForm checkedTasks={checked} />
                     <h2>Unbilled Tasks</h2>
                     <div className="actions">
                         { this.combineButton() }

@@ -1,5 +1,24 @@
 @import "../../../node_modules/bulma/bulma";
 
+$primary: #00d1b2;
+$info: #209cee;
+
+h1, h2 {
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: $primary;
+    font-size: 2.5rem;
+}
+
+h2 {
+    color: $info;
+    font-size: 2rem;
+}
+
 .invoice {
     nav {
         display: none;
@@ -8,4 +27,7 @@
     .footnote {
         margin-top: 1em; 
     }
+}
+
+.dashboard {
 }

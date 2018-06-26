@@ -31,10 +31,10 @@ class InvoiceForm extends React.Component {
         invoice.billed = 0;
         invoice.tasks = [];
 
-        const { checkedTasks } = this.props;
+        const { tasks } = this.props;
 
-        for (var i in checkedTasks) {
-            if (checkedTasks.hasOwnProperty(i) && checkedTasks[i]) {
+        for (var i in tasks) {
+            if (tasks.hasOwnProperty(i) && tasks[i]) {
                 invoice.tasks.push(i);
             }
         }
@@ -54,24 +54,32 @@ class InvoiceForm extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-md-10">
+            <div className="card invoice-form">
+                <div className="card-content">
                     <h2>Add Invoice</h2>
-                    <form className="form-inline">
-                        <div className="form-group">
-                            <label>Company:</label>
-                            <CompanySelect change={this.change}/>
+                    <form>
+                        <div className="field">
+                            <label className="label">Company:</label>
+                            <div className="control">
+                                <CompanySelect change={this.change}/>
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="date">Date:</label>
-                            <input type="date" id="date" className="form-control" placeholder="Date" onChange={this.change} />
+                        <div className="field">
+                            <label className="label" htmlFor="date">Date:</label>
+                            <div className="control">
+                                <input type="date" id="date" className="input" placeholder="Date" onChange={this.change} />
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="desc">Description:</label>
-                            <input type="text" id="desc" className="form-control" placeholder="Description" onChange={this.change} />
+                        <div className="field">
+                            <label className="label" htmlFor="desc">Description:</label>
+                            <div className="control">
+                                <input type="text" id="desc" className="input" placeholder="Description" onChange={this.change} />
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <button type="button" className="btn btn-primary" onClick={this.submit}>Save</button>
+                        <div className="field">
+                            <div className="control">
+                                <button type="button" className="button" onClick={this.submit}>Save</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -82,7 +90,8 @@ class InvoiceForm extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        form: store.invoiceState.get('form')
+        form: store.invoiceState.get('form'),
+        taskState: store.taskState,
     };
 };
 
