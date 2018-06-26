@@ -92,6 +92,7 @@ const mapStateToProps = function(store) {
     return {
         form: store.invoiceState.get('form'),
         taskState: store.taskState,
+        tasks: store.taskState.get('checked').toJS(),
     };
 };
 
