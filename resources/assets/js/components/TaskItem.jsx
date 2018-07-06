@@ -7,7 +7,7 @@ import {
     getUnbilledTaskTotals,
 } from '../modules/Tasks/action';
 
-import EditableLabel from './EditableLabel.jsx';
+import EditableLabel from 'react-editable-label';
 
 const { dispatch } = store;
 
@@ -54,6 +54,7 @@ class TaskItem extends React.Component {
                 <td>
                     <EditableLabel
                         initialValue={props.task.task}
+                        inputClass={'input'}
                         store={value => {
                             console.log(`store: ${value}`);
                         }}

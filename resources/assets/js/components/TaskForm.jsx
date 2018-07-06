@@ -47,28 +47,38 @@ class TaskForm extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-md-6">
+            <div className="card task-form">
+                <div className="card-content">
                     <h2>Add Task</h2>
                     <form className="form" id="task-form">
-                        <div className="form-group">
-                            <label>Company:</label>
-                            <CompanySelect change={this.change}/>
+                        <div className="field">
+                            <label className="label">Company:</label>
+                            <div className="control">
+                                <CompanySelect change={this.change}/>
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="date">Date:</label>
-                            <input type="date" id="date" className="form-control" placeholder="Date" onChange={this.change} />
+                        <div className="field">
+                            <label className="label" htmlFor="date">Date:</label>
+                            <div className="control">
+                                <input className="input" type="date" id="date" placeholder="Date" onChange={this.change} />
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="task">Task:</label>
-                            <input type="text" id="task" className="form-control" placeholder="Task" onChange={this.change} />
+                        <div className="field">
+                            <label className="label" htmlFor="task">Task:</label>
+                            <div className="control">
+                                <input className="input" type="text" id="task" placeholder="Task" onChange={this.change} />
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="hours">Hours:</label>
-                            <input type="number" id="hours" className="form-control" placeholder="Hours" min="0" onChange={this.change} />
+                        <div className="field">
+                            <label className="label" htmlFor="hours">Hours:</label>
+                            <div className="control">
+                                <input className="input" type="number" id="hours" placeholder="Hours" min="0" onChange={this.change} />
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <button type="button" className="btn btn-primary" onClick={this.submit}>Save</button>
+                        <div className="field">
+                            <div className="control">
+                                <button type="button" className="button" onClick={this.submit}>Save</button>
+                            </div>
                         </div>
                     </form>
                 </div>

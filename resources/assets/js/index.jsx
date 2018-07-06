@@ -8,13 +8,7 @@ class App extends React.Component {
     render () {
         return (
             <Provider store={store}>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <Dashboard />
-                        </div>
-                    </div>
-                </div>
+                <Dashboard />
             </Provider>
         );
     }

@@ -11,17 +11,19 @@ class CompanySelect extends React.Component {
     render() {
         if (this.props.companies.size > 0) {
             return (
-                <select id="company" className="form-control" onChange={this.props.change}>
-                    <option key="0" value=""></option>
-                {
-                    this.props.companies.toArray().map(company => {
-                        company = company.toObject();
-                        return (
-                            <option key={company.id} value={company.id}>{company.name}</option>
-                        )
-                    })
-                }
-                </select>
+                <div className="select">
+                    <select id="company" onChange={this.props.change}>
+                        <option key="0" value=""></option>
+                    {
+                        this.props.companies.toArray().map(company => {
+                            company = company.toObject();
+                            return (
+                                <option key={company.id} value={company.id}>{company.name}</option>
+                            )
+                        })
+                    }
+                    </select>
+                </div>
             )
         } else {
             return (
@@ -34,7 +36,7 @@ class CompanySelect extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        companies: store.metaState.get('companies')
+        companies: store.companyState.get('companies')
     };
 };
 

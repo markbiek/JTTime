@@ -16,6 +16,8 @@ import TaskTotals from './TaskTotals.jsx';
 import TaskList from './TaskList.jsx';
 import TaskForm from './TaskForm.jsx';
 import InvoiceList from './InvoiceList.jsx';
+import InvoiceForm from './InvoiceForm.jsx';
+import DashboardNav from './DashboardNav.jsx';
 
 const { dispatch } = store;
 
@@ -26,16 +28,49 @@ class Dashboard extends React.Component {
         getCompanies();
     }
 
+    renderInvoiceTab() {
+        const { tab } = this.props;
+
+        if (tab != 'invoices') {
+            return null;
+        }
+
+        return (
+            <InvoiceList />
+        );
+    }
+
+    renderTaskTab() {
+        const { tab } = this.props;
+
+        if (tab != 'add-task') {
+            return null;
+        }
+
+        return (
+            <div className="container">
+                <div className="columns">
+                    <div className="column">
+                        <TaskForm />
+                    </div>
+                    <div className="column">
+                        <TaskTotals />
+                        <InvoiceForm />
+                    </div>
+                </div>
+                <TaskList />
+            </div>
+        );
+    }
+
     render() {
         return (
-            <div>
+            <div className="container dashboard">
                 <h1>Time Dashboard</h1>
 
-                <TaskForm />
-                <TaskTotals />
-                <TaskList />
-
-                <InvoiceList />
+                <DashboardNav />
+                {this.renderTaskTab()}
+                {this.renderInvoiceTab()}
             </div>
         )
     }
@@ -43,6 +78,7 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
+        tab: store.metaState.get('tab'),
         taskState: store.taskState,
         invoiceState: store.invoiceState
     };

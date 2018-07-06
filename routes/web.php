@@ -15,7 +15,7 @@ Route::get('login', 'Auth\LoginController@showLoginForm');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::get('/invoice/{tag}', 'InvoiceController@viewInvoice');
+Route::get('/invoice/{tag}', 'InvoiceController@viewInvoice')->name('invoice');
 Route::get('/', 'HomeController@index');
 
 Route::get('/api/companies', 'ApiController@companies');

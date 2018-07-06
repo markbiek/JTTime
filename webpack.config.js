@@ -5,12 +5,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BUILD_DIR = path.resolve(__dirname, 'public/');
 const APP_DIR = path.resolve(__dirname, 'resources/assets/');
 
-const extractLess = new ExtractTextPlugin({
-    filename: `../css/app.css`
+const extractSass = new ExtractTextPlugin({
+    filename: "../css/app.css"
 });
 
 const config = {
-    entry: [`${APP_DIR}/js/index.jsx`, `${APP_DIR}/less/app.less`, `${APP_DIR}/less/print.less`],
+    entry: [`${APP_DIR}/js/index.jsx`,  `${APP_DIR}/scss/app.scss`],
     output: {
         path: `${BUILD_DIR}/js`,
         filename: 'bundle.js'
@@ -23,12 +23,12 @@ const config = {
                 loader: 'url-loader?limit=100000'
             },
             {
-                test: /\.less$/,
-                use: extractLess.extract({
+                test: /\.scss$/,
+                use: extractSass.extract({
                     use: [{
                         loader: 'css-loader'
                     }, {
-                        loader: 'less-loader'
+                        loader: 'sass-loader'
                     }]
                 })
             },
@@ -43,7 +43,7 @@ const config = {
         ]
     },
     plugins: [
-        extractLess
+        extractSass
     ]
 };
 

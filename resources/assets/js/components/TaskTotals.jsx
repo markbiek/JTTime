@@ -20,17 +20,19 @@ class TaskTotals extends React.Component {
         }
 
         return (
-            <div>
-                <h2>Unbilled $</h2>
-                <ul>
-                {
-                    totals.map(item => {
-                        return (
-                            <li>{item.company_name} &mdash; ${item.unbilled}</li> 
-                        )
-                    })
-                }
-                </ul>
+            <div className="card task-totals">
+                <div className="card-content">
+                    <h2>Unbilled $</h2>
+                    <ul>
+                    {
+                        totals.map(item => {
+                            return (
+                                <li className="has-text-dark">{item.company_name} &mdash; ${item.unbilled}</li> 
+                            )
+                        })
+                    }
+                    </ul>
+                </div>
             </div>
         )
     }
