@@ -11,6 +11,7 @@
     "autoprefixer-loader": "^3.2.0",
     "css-loader": "^0.23.1",
     "gulp": "^3.9.1",
+    "hoek": "github:hapijs/hoek",
     "immutable": "^3.8.1",
     "jquery": "^3.1.0",
     "laravel-elixir": "^6.0.0-9",
