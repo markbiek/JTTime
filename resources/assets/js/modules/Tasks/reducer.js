@@ -1,4 +1,5 @@
 import { fromJS, List} from 'immutable';
+import _ from 'lodash';
 
 /** Task Store **/
 const taskInitialState = fromJS({
