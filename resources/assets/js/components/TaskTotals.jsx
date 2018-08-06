@@ -1,17 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store from '../store.js';
-import {
-    getUnbilledTaskTotals
-} from '../modules/Tasks/action';
 
-const { dispatch } = store;
+import store from '../store.js';
 
 class TaskTotals extends React.Component {
-    componentDidMount() {
-        dispatch(getUnbilledTaskTotals());
-    }
-
     render() {
         const { totals } = this.props.taskState.toJS();
 

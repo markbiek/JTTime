@@ -23,9 +23,9 @@ const { dispatch } = store;
 
 class Dashboard extends React.Component {
     componentDidMount() {
-        dispatch(getUnpaidInvoices());
-        dispatch(getUnbilledTasks());
-        getCompanies();
+        //dispatch(getUnpaidInvoices());
+        //dispatch(getUnbilledTasks());
+        //getCompanies();
     }
 
     renderInvoiceTab() {

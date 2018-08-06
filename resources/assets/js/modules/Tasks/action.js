@@ -2,48 +2,47 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { fromJS } from 'immutable';
+
 import store from '../../store.js';
 
-const { dispatch } = store;
+const TASK_TOTALS_IS_COMPLETE = 'TASK_TOTALS_IS_COMPLETE';
+const TASKS_IS_LOADING = 'TASKS_IS_LOADING';
+const TASKS_IS_ERRORED = 'TASKS_IS_ERRORED';
+const TASKS_IS_COMPLETE = 'TASKS_IS_COMPLETE';
 
 // Actions
-export function actionTasksIsLoading(bool) {
-    return dispatch => {
-        if (bool) {
-            dispatch(actionTasksIsErrored(false, null));
-            dispatch(actionTasksIsComplete(null));
-        }
 
-        dispatch({
-            type: 'TASKS_IS_LOADING',
-            loading: bool
-        });
+export function actionGetUnbilledTaskTotals(totals) {
+    return {
+        type: TASK_TOTALS_IS_COMPLETE,
+        totals
+    };
+}
+
+export function actionTasksIsLoading(bool) {
+    return {
+        type: TASKS_IS_LOADING,
+        loading: bool
     };
 }
 
 export function actionTasksIsErrored(bool, err) {
-    return dispatch({
-        type: 'TASKS_IS_ERRORED',
+    return {
+        type: TASKS_IS_ERRORED,
         errored: bool,
         error: err
-    });
+    };
 }
 
 export function actionTasksIsComplete(tasks) {
-    return dispatch({
-        type: 'TASKS_IS_COMPLETE',
+    return {
+        type: TASKS_IS_COMPLETE,
         complete: tasks !== null,
-        tasks: tasks
-    });
+        tasks
+    };
 }
 
-export function actionGetUnbilledTaskTotals(totals) {
-    return dispatch({
-        type: 'TASK_TOTALS_IS_COMPLETE',
-        totals: totals
-    });
-}
-
+/*
 export function actionClearCheckedTasks() {
     return {
         type: 'CLEAR_CHECKED_TASKS'
@@ -118,39 +117,17 @@ export const deleteTask = task => {
         });
     };
 };
+*/
 
-export const getUnbilledTasks = () => {
-    return dispatch => {
-        dispatch(actionTasksIsLoading(true));
+export const fetchUnbilledTasks = () => {
+    return axios.get('/api/tasks?status=unbilled');
+}
 
-        axios.get('/api/tasks?status=unbilled')
-        .then(function (response) {
-            var tasks = fromJS(response.data);
-
-            dispatch(actionTasksIsLoading(false));
-            dispatch(actionTasksIsComplete(tasks));
-            dispatch(getUnbilledTaskTotals());
-        })
-        .catch(function (err) {
-            dispatch(actionTasksIsLoading(true, err));
-        });
-    };
+export const fetchUnbilledTaskTotals = () => {
+    return axios.get('/api/tasks/totals');
 };
 
-export const getUnbilledTaskTotals = () => {
-    return dispatch => {
-        axios.get('/api/tasks/totals')
-        .then(resp => {
-            let totals = fromJS(resp.data);
-
-            dispatch(actionGetUnbilledTaskTotals(totals));
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    };
-};
-
+/*
 export const combineTasks = (tasks) => {
     console.log('combineTasks');
 
@@ -165,3 +142,4 @@ export const combineTasks = (tasks) => {
         console.log(err);
     });
 };
+*/
