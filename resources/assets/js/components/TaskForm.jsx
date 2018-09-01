@@ -6,8 +6,7 @@ import CompanySelect from './CompanySelect.jsx';
 
 import {
     actionTaskFormChange,
-    addTask,
-    getUnbilledTaskTotals,
+    actionAddTask,
 } from '../modules/Tasks/action';
 
 const { dispatch } = store;
@@ -30,7 +29,7 @@ class TaskForm extends React.Component {
         var task = this.props.form.toObject();
         task.billed = 0;
 
-        dispatch(addTask(task));
+        dispatch(actionAddTask(task));
 
         this.clearForm();
     }

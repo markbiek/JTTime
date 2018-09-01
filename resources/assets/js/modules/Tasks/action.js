@@ -9,6 +9,11 @@ const TASK_TOTALS_IS_COMPLETE = 'TASK_TOTALS_IS_COMPLETE';
 const TASKS_IS_LOADING = 'TASKS_IS_LOADING';
 const TASKS_IS_ERRORED = 'TASKS_IS_ERRORED';
 const TASKS_IS_COMPLETE = 'TASKS_IS_COMPLETE';
+const CLEAR_CHECKED_TASKS = 'CLEAR_CHECKED_TASKS';
+const DELETE_TASK = 'DELETE_TASK';
+const TASK_CHECKED = 'TASK_CHECKED';
+const ADD_TASK = 'ADD_TASK';
+const TASK_FORM_CHANGE = 'TASK_FORM_CHANGE';
 
 // Actions
 
@@ -42,44 +47,45 @@ export function actionTasksIsComplete(tasks) {
     };
 }
 
-/*
 export function actionClearCheckedTasks() {
     return {
-        type: 'CLEAR_CHECKED_TASKS'
+        type: CLEAR_CHECKED_TASKS
     };
 }
 
 export function actionDeleteTask(task) {
+    console.log('actionDeleteTask:');
+    console.log(task);
+
     return {
-        type: 'DELETE_TASK',
+        type: DELETE_TASK,
         task
     };
 }
 
 export function actionTaskChecked(task) {
     return {
-        type: 'TASK_CHECKED',
+        type: TASK_CHECKED,
         task
     };
 }
 
 export function actionAddTask(task) {
     return {
-        type: 'ADD_TASK',
+        type: ADD_TASK,
         task
     };
 }
 
 export function actionTaskFormChange(form) {
     return {
-        type: 'TASK_FORM_CHANGE',
+        type: TASK_FORM_CHANGE,
         form
     };
 }
 
 export const addTask = task => {
-    return dispatch => {
-        axios.post('/api/tasks/add', task)
+    return axios.post('/api/tasks/add', task)
         .then((response) => {
             task = fromJS(response.data);
 
@@ -92,32 +98,7 @@ export const addTask = task => {
             console.log('Error adding task.');
             console.log(err);
         });
-    };
 };
-
-export const deleteTask = task => {
-    return dispatch => {
-        dispatch(actionDeleteTask(task));
-
-        axios.post('/api/tasks/delete', {
-            id: task.id
-        })
-        .then(function (response) {
-            var data = response.data;
-
-            if (data.status == 'ok') {
-                dispatch(getUnbilledTaskTotals());
-            } else {
-                alert(data.msg);
-            }
-        })
-        .catch(function (err) {
-            console.log('Error deleting task.');
-            console.log(err);
-        });
-    };
-};
-*/
 
 export const fetchUnbilledTasks = () => {
     return axios.get('/api/tasks?status=unbilled');

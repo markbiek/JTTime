@@ -5,11 +5,15 @@ import store from '../store';
 import {
     loadUnbilledTaskTotals,
     loadUnbilledTasks,
+    watchClearCheckedTasks,
+    watchDeleteTask
 } from '../modules/Tasks/sagas';
 
 export default function* rootSaga() {
     yield all([
         loadUnbilledTaskTotals(),
-        loadUnbilledTasks()
+        loadUnbilledTasks(),
+        watchClearCheckedTasks(),
+        watchDeleteTask()
     ]);
 }

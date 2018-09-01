@@ -3,7 +3,7 @@ import store from '../store.js';
 
 import {
     actionTaskChecked,
-    deleteTask,
+    actionDeleteTask,
     getUnbilledTaskTotals,
 } from '../modules/Tasks/action';
 
@@ -26,7 +26,9 @@ class TaskItem extends React.Component {
             return;
         }
 
-        dispatch(deleteTask({id: id}));
+        console.log(`Dispatching delete-task ${id}`);
+
+        dispatch(actionDeleteTask({id: id}));
     }
 
     check(id, e) {

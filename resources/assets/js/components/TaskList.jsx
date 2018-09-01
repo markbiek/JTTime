@@ -6,12 +6,8 @@ import TaskItem from './TaskItem.jsx';
 
 import {
     actionClearCheckedTasks,
-    getUnbilledTasks,
-    getUnbilledTaskTotals,
     combineTasks
 } from '../modules/Tasks/action';
-
-const { dispatch } = store;
 
 class TaskList extends React.Component {
     combineButton() {
@@ -32,10 +28,7 @@ class TaskList extends React.Component {
 
                     if (confirm('Are you sure you want to combine these tasks? This cannot be undone.')) {
                         await combineTasks(tasks);
-                        await store.dispatch(actionClearCheckedTasks(actionClearCheckedTasks()));
-
-                        store.dispatch(getUnbilledTasks());
-                        getUnbilledTaskTotals();
+                        await store.dispatch(actionClearCheckedTasks());
                     }
                 }}>Combine Tasks</button>
             );
