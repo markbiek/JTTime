@@ -29,8 +29,15 @@ $total = 0;
 ?>
         @foreach ($invoice->tasks as $task)
 <?php
-$amount = $task->raw_amount ? $task->raw_amount : ($task->hours * $invoice->rate);
-$total += $amount;
+$amount = 0;
+
+if ($task->hours) {
+    $amount += $task->hours * $invoice->rate;
+}
+
+if ($task->raw_amount) {
+    $amount += $task->raw_amount;
+}
 ?>
                 <tr>
                     <td>{{ date('Y-m-d', strtotime($task->created_at)) }}</td>
@@ -41,7 +48,7 @@ $total += $amount;
             <tr>
                         <td colspan="2">&nbsp;</td>
                         <td>
-                            <p class="is-size-4"><strong>Total: {{ "$" . $total }}</strong></p>
+                            <p class="is-size-4"><strong>Total: {{ "$" . $invoice->total }}</strong></p>
                             @if (!$invoice->paid)
                                 <p class="footnote">
                                     <strong>Pay To:</strong><br />

@@ -22,7 +22,7 @@ class Invoice extends Model {
     }
 
     public function getTotalAttribute() {
-        return $this->tasks->sum('hours') * $this->rate;
+        return ($this->tasks->sum('hours') * $this->rate) + ($this->tasks->sum('raw_amount'));
     }
 
     public function generateTag() {
