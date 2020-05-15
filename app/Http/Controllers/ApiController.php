@@ -165,7 +165,6 @@ class ApiController extends Controller {
 
         $invoices = $invoices
                     ->with('company')
-                    ->where('created_at', '>=', date('Y-01-01 00:00:00'))
                     ->orderBy('created_at', 'desc')
                     ->get();
 
