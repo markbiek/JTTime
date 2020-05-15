@@ -61,6 +61,7 @@ class TaskItem extends React.Component {
                     />
                 </td>
                 <td>{props.task.hours}</td>
+                <td>{props.task.raw_amount}</td>
                 <td>{props.task.created_at}</td>
             </tr>
         )
