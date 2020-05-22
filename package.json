@@ -1,48 +1,64 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "webpack",
-    "watch": "webpack --progress --watch",
-    "clean": "rm -f public/js/* && rm -f public/css/*",
-    "dev": "npm run build",
-    "prod": "npm run build"
-  },
-  "devDependencies": {
-    "autoprefixer-loader": "^3.2.0",
-    "css-loader": "^0.23.1",
-    "gulp": "^3.9.1",
-    "hoek": "github:hapijs/hoek",
-    "immutable": "^3.8.1",
-    "jquery": "^3.1.0",
-    "laravel-elixir": "^6.0.0-9",
-    "laravel-elixir-webpack-official": "^1.0.2",
-    "less": "^2.7.1",
-    "less-loader": "^2.2.3",
-    "lodash": "^4.14.0",
-    "style-loader": "^0.13.1"
-  },
-  "dependencies": {
-    "axios": "^0.13.1",
-    "babel-core": "^6.26.0",
-    "babel-env": "^2.4.1",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-react": "^6.24.1",
-    "bulma": "^0.7.1",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.5",
-    "promise-polyfill": "^6.1.0",
-    "prop-types": "^15.6.0",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "react-editable-label": "^0.1.2",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-thunk": "^2.2.0",
-    "sass-loader": "^7.0.3",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.8.1",
-    "whatwg-fetch": "^2.0.3"
-  }
+	"private": true,
+	"scripts": {
+		"build": "webpack",
+		"watch": "webpack --progress --watch",
+		"clean": "rm -f public/js/* && rm -f public/css/*",
+		"dev": "npm run build",
+		"prod": "npm run build"
+	},
+	"devDependencies": {
+		"@prettier/plugin-php": "^0.14.1",
+		"autoprefixer-loader": "^3.2.0",
+		"css-loader": "^0.23.1",
+		"gulp": "^3.9.1",
+		"hoek": "github:hapijs/hoek",
+		"husky": "^4.2.5",
+		"immutable": "^3.8.1",
+		"jquery": "^3.1.0",
+		"laravel-elixir": "^6.0.0-9",
+		"laravel-elixir-webpack-official": "^1.0.2",
+		"less": "^2.7.1",
+		"less-loader": "^2.2.3",
+		"lint-staged": "^10.2.6",
+		"lodash": "^4.14.0",
+		"prettier": "^2.0.5",
+		"style-loader": "^0.13.1"
+	},
+	"dependencies": {
+		"axios": "^0.13.1",
+		"babel-core": "^6.26.0",
+		"babel-env": "^2.4.1",
+		"babel-loader": "^7.1.2",
+		"babel-plugin-transform-runtime": "^6.23.0",
+		"babel-polyfill": "^6.26.0",
+		"babel-preset-react": "^6.24.1",
+		"bulma": "^0.7.1",
+		"extract-text-webpack-plugin": "^3.0.2",
+		"file-loader": "^1.1.5",
+		"promise-polyfill": "^6.1.0",
+		"prop-types": "^15.6.0",
+		"react": "^15.3.0",
+		"react-dom": "^15.3.0",
+		"react-editable-label": "^0.1.2",
+		"react-redux": "^4.4.5",
+		"redux": "^3.5.2",
+		"redux-thunk": "^2.2.0",
+		"sass-loader": "^7.0.3",
+		"url-loader": "^0.6.2",
+		"webpack": "^3.8.1",
+		"whatwg-fetch": "^2.0.3"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged",
+			"pre-push": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"**/resources/**/*.js": "eslint",
+		"**/app/**/*.php": [
+			"php -l"
+		]
+	}
 }
